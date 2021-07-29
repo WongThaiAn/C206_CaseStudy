@@ -22,6 +22,62 @@ public class Currency {
 		this.bRate = bRate;
 		this.sRate = sRate;
 	}
+
+	/**
+	 * @return the iSO
+	 */
+	public String getISO() {
+		return ISO;
+	}
+
+	/**
+	 * @param iSO the iSO to set
+	 */
+	public void setISO(String iSO) {
+		ISO = iSO;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the bRate
+	 */
+	public double getbRate() {
+		return bRate;
+	}
+
+	/**
+	 * @param bRate the bRate to set
+	 */
+	public void setbRate(double bRate) {
+		this.bRate = bRate;
+	}
+
+	/**
+	 * @return the sRate
+	 */
+	public double getsRate() {
+		return sRate;
+	}
+
+	/**
+	 * @param sRate the sRate to set
+	 */
+	public void setsRate(double sRate) {
+		this.sRate = sRate;
+	}
 	
 	
 }
