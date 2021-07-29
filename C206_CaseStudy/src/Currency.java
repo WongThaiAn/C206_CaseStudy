@@ -15,12 +15,28 @@ public class Currency {
 	private String name;
 	private double bRate;
 	private double sRate;
+	private double holding;
 	
-	public Currency(String ISO, String name, double bRate, double sRate) {
+	public Currency(String ISO, String name, double bRate, double sRate, double holding) {
 		this.ISO = ISO;
 		this.name = name;
 		this.bRate = bRate;
 		this.sRate = sRate;
+		this.holding = holding;
+	}
+
+	/**
+	 * @return the holding
+	 */
+	public double getHolding() {
+		return holding;
+	}
+
+	/**
+	 * @param holding the holding to set
+	 */
+	public void setHolding(double holding) {
+		this.holding = holding;
 	}
 
 	/**
