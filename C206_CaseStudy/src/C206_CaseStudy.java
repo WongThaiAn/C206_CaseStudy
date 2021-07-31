@@ -5,7 +5,8 @@ public class C206_CaseStudy {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ArrayList<Currency> currencyList = new ArrayList<Currency>();
-
+		currencyList.add(new Currency(702, "SGD", 0.7, 1.3, 10000));
+		currencyList.add(new Currency(840, "USD", 1.3, 0.7, 5000));
 		int option = 0;
 
 		while (option != 15) {
@@ -28,7 +29,7 @@ public class C206_CaseStudy {
 				C206_CaseStudy.viewCompanyholding(currencyList);
 			} else if (option == 8) {
 				C206_CaseStudy.viewSGDvalue(currencyList);
-			} else if (option == 9 ) {
+			} else if (option == 9) {
 				C206_CaseStudy.searchCurrencyholding(currencyList);
 			} else if (option == 10) {
 				C206_CaseStudy.searchBuySellrate(currencyList);
@@ -36,10 +37,10 @@ public class C206_CaseStudy {
 				C206_CaseStudy.calculateConvert(currencyList);
 			} else if (option == 12) {
 				C206_CaseStudy.addTransaction(currencyList);
-			}else if (option == 15) {
+			} else if (option == 15) {
 				System.out.println("Bye");
 			}
-			
+
 		}
 	}
 
@@ -65,66 +66,87 @@ public class C206_CaseStudy {
 		System.out.println("12. Record buying transaction");
 	}
 
-	private static void addCurrency(ArrayList<Currency> currencyList) {
+	public static void addCurrency(ArrayList<Currency> currencyList) {
 
 	}
 
-	private static void viewAllCurrency(ArrayList<Currency> currencyList) {
+	public static void viewAllCurrency(ArrayList<Currency> currencyList) {
 
 	}
 
-	private static void deleteCurrency(ArrayList<Currency> currencyList) {
+	public static void deleteCurrency(ArrayList<Currency> currencyList) {
 
 	}
 
-	private static void addHolding(ArrayList<Currency> currencyList) {
-		
+	public static void addHolding(ArrayList<Currency> currencyList) {
+
 		C206_CaseStudy.setHeader("Add Holding");
-		String iso = Helper.readString("Enter Currency ISO: ");
-		double holding = Helper.readDouble("Enter holding amount: ");
-		for(int i = 0; i<currencyList.size();i++) {
-			if(currencyList.get(i).getISO().equals(iso)) {
-				
+		int iso = Helper.readInt("Enter Currency ISO: ");
+		boolean match = false;
+		for (int i = 0; i < currencyList.size(); i++) {
+			if (currencyList.get(i).getISO() == iso) {
+				double holding = Helper.readDouble("Enter holding amount to add: ");
+				currencyList.get(i).setHolding(currencyList.get(i).getHolding() + holding);
+				System.out.println(holding + "" + currencyList.get(i).getName() + " has been deleted");
+				match = true;
 			}
 		}
-		
-	}
-	private static void viewHolding(ArrayList<Currency> currencyList) {
-		C206_CaseStudy.setHeader("View Holding");
-		String output = "";
-		for(int i = 0; i<currencyList.size(); i++) {
-			output+= String.format("%-10s", currencyList.get(i).getName());
-		}
-		
-	}
-	private static void deleteHolding(ArrayList<Currency> currencyList) {
-		
-		
-	}
-	private static void viewCompanyholding(ArrayList<Currency> currencyList) {
-		// TODO Auto-generated method stub
-		
-	}
-	private static void viewSGDvalue(ArrayList<Currency> currencyList) {
-		// TODO Auto-generated method stub
-		
-	}
-	private static void searchCurrencyholding(ArrayList<Currency> currencyList) {
-		// TODO Auto-generated method stub
-		
-	}
-	private static void searchBuySellrate(ArrayList<Currency> currencyList) {
-		// TODO Auto-generated method stub
-		
-	}
-	private static void calculateConvert(ArrayList<Currency> currencyList) {
-		// TODO Auto-generated method stub
-		
-	}
-	private static void addTransaction(ArrayList<Currency> currencyList) {
-		// TODO Auto-generated method stub
-		
 	}
 
+	public static String retrieveHolding(ArrayList<Currency> currencyList) {
+		String output = "";
+
+		for (int i = 0; i < currencyList.size(); i++) {
+			output += String.format("%-10s %.2f\n", currencyList.get(i).getName(), currencyList.get(i).getHolding());
+		}
+		return output;
+	}
+
+	public static void viewHolding(ArrayList<Currency> currencyList) {
+		C206_CaseStudy.setHeader("View Holding");
+		String output = String.format("%-10s %s\n", "Name", "Holding");
+		output += retrieveHolding(currencyList);
+		System.out.println(output);
+
+	}
+
+	public static void deleteHolding(ArrayList<Currency> currencyList) {
+		C206_CaseStudy.setHeader("Delete Holding");
+		int iso = Helper.readInt("Enter Currency ISO: ");
+		for (int i = 0; i < currencyList.size(); i++) {
+			if (currencyList.get(i).getISO() == iso) {
+				double holding = Helper.readDouble("Enter holding amount to delete: ");
+				currencyList.get(i).setHolding(currencyList.get(i).getHolding() - holding);
+				System.out.println(holding + "" + currencyList.get(i).getName() + " has been deleted");
+			}else {
+				System.out.println("Currency ISO not found");
+			}
+		}
+
+	}
+
+	public static void viewCompanyholding(ArrayList<Currency> currencyList) {
+
+	}
+
+	public static void viewSGDvalue(ArrayList<Currency> currencyList) {
+
+	}
+
+	public static void searchCurrencyholding(ArrayList<Currency> currencyList) {
+
+	}
+
+	public static void searchBuySellrate(ArrayList<Currency> currencyList) {
+
+	}
+
+	public static void calculateConvert(ArrayList<Currency> currencyList) {
+
+	}
+
+	public static void addTransaction(ArrayList<Currency> currencyList) {
+
+	}
 
 }
