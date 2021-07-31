@@ -1,12 +1,12 @@
 
 public class Currency {
-	private String ISO;
+	private int ISO;
 	private String name;
 	private double bRate;
 	private double sRate;
 	private double holding;
 	
-	public Currency(String ISO, String name, double bRate, double sRate, double holding) {
+	public Currency(int ISO, String name, double bRate, double sRate, double holding) {
 		this.ISO = ISO;
 		this.name = name;
 		this.bRate = bRate;
@@ -31,14 +31,14 @@ public class Currency {
 	/**
 	 * @return the iSO
 	 */
-	public String getISO() {
+	public int getISO() {
 		return ISO;
 	}
 
 	/**
 	 * @param iSO the iSO to set
 	 */
-	public void setISO(String iSO) {
+	public void setISO(int iSO) {
 		ISO = iSO;
 	}
 
