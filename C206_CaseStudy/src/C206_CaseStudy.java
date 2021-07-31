@@ -78,13 +78,27 @@ public class C206_CaseStudy {
 	}
 
 	private static void addHolding(ArrayList<Currency> currencyList) {
-
+		
+		C206_CaseStudy.setHeader("Add Holding");
+		String iso = Helper.readString("Enter Currency ISO: ");
+		double holding = Helper.readDouble("Enter holding amount: ");
+		for(int i = 0; i<currencyList.size();i++) {
+			if(currencyList.get(i).getISO().equals(iso)) {
+				
+			}
+		}
+		
 	}
 	private static void viewHolding(ArrayList<Currency> currencyList) {
+		C206_CaseStudy.setHeader("View Holding");
+		String output = "";
+		for(int i = 0; i<currencyList.size(); i++) {
+			output+= String.format("%-10s", currencyList.get(i).getName());
+		}
 		
 	}
 	private static void deleteHolding(ArrayList<Currency> currencyList) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	private static void viewCompanyholding(ArrayList<Currency> currencyList) {
