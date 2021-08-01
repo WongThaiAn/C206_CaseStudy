@@ -87,9 +87,12 @@ public class C206_CaseStudy {
 			if (currencyList.get(i).getISO() == iso) {
 				double holding = Helper.readDouble("Enter holding amount to add: ");
 				currencyList.get(i).setHolding(currencyList.get(i).getHolding() + holding);
-				System.out.println(holding + "" + currencyList.get(i).getName() + " has been deleted");
+				System.out.println(holding + "" + currencyList.get(i).getName() + " has been added");
 				match = true;
 			}
+		}
+		if(!match) {
+			System.out.println("No such ISO");
 		}
 	}
 
@@ -112,15 +115,18 @@ public class C206_CaseStudy {
 
 	public static void deleteHolding(ArrayList<Currency> currencyList) {
 		C206_CaseStudy.setHeader("Delete Holding");
+		boolean match = false;
 		int iso = Helper.readInt("Enter Currency ISO: ");
 		for (int i = 0; i < currencyList.size(); i++) {
 			if (currencyList.get(i).getISO() == iso) {
 				double holding = Helper.readDouble("Enter holding amount to delete: ");
 				currencyList.get(i).setHolding(currencyList.get(i).getHolding() - holding);
 				System.out.println(holding + "" + currencyList.get(i).getName() + " has been deleted");
-			}else {
-				System.out.println("Currency ISO not found");
+				match = true;
 			}
+		}
+		if(!match) {
+			System.out.println("No such ISO");
 		}
 
 	}
