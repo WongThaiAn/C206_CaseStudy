@@ -25,18 +25,29 @@ public class C206_CaseStudyTest {
 	}
 	
 	@Test
-	public void addHoldingsTest() {
-		// Item list is not null, so that can add a new item - boundary
-		assertNotNull("Check if there is a valid Currency arraylist to add to");
-		
-		//Given an empty list, after adding 1 item, the size of the list is 1 - normal
-		//The item just added is as same as the first item of the list
-		//C206_CaseStudy.addHolding(currencyList,c1);
-
+	public void addHoldingTest() {
+		// Test if currency list is not null, so that can add a new item - boundary
+		assertNotNull("Check if there is a valid Currency arraylist to add to",currencyList);
 				
-		
 	}
-
+	@Test
+	public void retrieveHoldingTest() {
+		//Test if currency list is not null but empty - boundary
+		assertNotNull("Check if there is a valid Currency arraylist to retrieve holding",currencyList);
+		//Test if the list of Currency retrieved from the C206_CaseStudy is empty - boundary
+		String allCurrency = C206_CaseStudy.retrieveHolding(currencyList);
+		String testOutput = "";
+		assertEquals("Test that the retrieved CurrencyList is empty?",testOutput);
+		
+		//Given an empty list, after adding 2 currency, test if the size of the list is 2 - normal
+	}
+	
+	@Test
+	public void deleteHoldingTest() {
+		// Test if currency list is not null, so that can delete a item - boundary
+		assertNotNull("Check if there is a valid Currency arraylist to delete from",currencyList);
+	}
+	
 	@After
 	public void tearDown() throws Exception {
 		c1 = null;
