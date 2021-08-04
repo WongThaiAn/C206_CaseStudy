@@ -143,13 +143,69 @@ public class C206_CaseStudy {
 
 	}
 
-	public static void searchBuySellrate(ArrayList<Currency> currencyList) {
+	 public static void searchBuySellrate(ArrayList<Currency> currencyList) {
+	        C206_CaseStudy.setHeader("Search Buy & Sell rate currency");
+	        int iso = Helper.readInt("Enter currency ISO> ");
+	        String output=String.format("%-15s %-15s %-15s %-15s\n", "CURRENCY ISO", "CURRENCY NAME", "BUY RATE", "SELL RATE");
+	        for(int i = 0; i<currencyList.size();i++) {
+	            if(currencyList.get(i).getISO() == iso) {
+	                output += String.format("%-15d %-15s %-15.2f %-15.2f\n", currencyList.get(i).getISO(), currencyList.get(i).getName(), currencyList.get(i).getbRate(), currencyList.get(i).getsRate());
+	            }
+	        }System.out.println(output);
+	    }
 
-	}
+	 
 
-	public static void calculateConvert(ArrayList<Currency> currencyList) {
+	    public static void calculateConvert(ArrayList<Currency> currencyList) {
+	        C206_CaseStudy.setHeader("Currency Converter Calculator");
+	        System.out.println("1. SELL Foreign Currency");
+	        System.out.println("2. Buy Local Currency");
+	        int option = Helper.readInt("Enter option> ");
+	        double buyamt = 0.0;
+	        double sellamt = 0.0;
+	        double convertamt=0.0;
+	        String name="";
+	        String aName="";
+	        String output="";
+	        if(option == 1) {
+	            int iso = Helper.readInt("Enter currency ISO you want to sell to customer> ");
+	            int buyiso = Helper.readInt("Enter currency ISO you want to buy from customer> ");
+	            int amount = Helper.readInt("Enter amount of currency you want to exchange> ");
+	            for(int i = 0; i<currencyList.size();i++) {
+	                if( iso == currencyList.get(i).getISO()) {
+	                    buyamt = currencyList.get(i).getbRate();
+	                    name = currencyList.get(i).getName();
+	                }
+	                if(currencyList.get(i).getISO() == buyiso) {
+	                    sellamt = currencyList.get(i).getsRate();
+	                    aName = currencyList.get(i).getName();
+	                }
+	                convertamt = (amount * buyamt) * sellamt;
+	                output = String.format("Converted amount from %s to %s is $%-1.2f", name, aName, convertamt);
+	            }
+	            System.out.println(output);
+	        }else if(option == 2){
+	            int iso = Helper.readInt("Enter currency ISO you want to buy from customer> ");
+	            int selliso = Helper.readInt("Enter currency ISO you want to sell to customer> ");
+	            int amount = Helper.readInt("Enter amount of currency you want to exchange> ");
+	            for(int i = 0; i<currencyList.size();i++) {
+	                if( iso == currencyList.get(i).getISO()) {
+	                    sellamt = currencyList.get(i).getsRate();
+	                    name = currencyList.get(i).getName();
+	                }
+	                if(currencyList.get(i).getISO() == selliso) {
+	                    buyamt = currencyList.get(i).getbRate();
+	                    aName = currencyList.get(i).getName();
+	                }
+	                convertamt = (amount * sellamt) * buyamt;
+	                output = String.format("Converted amount from %s to %s is $%-1.2f", name, aName, convertamt);
 
-	}
+	 
+
+	            }
+	            System.out.println(output);
+	        }
+	    }
 
 	public static void addTransaction(ArrayList<Currency> currencyList) {
 
