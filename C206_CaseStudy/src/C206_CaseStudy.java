@@ -64,6 +64,7 @@ public class C206_CaseStudy {
 		System.out.println("10. Search for buy and sell rate of currency");
 		System.out.println("11. Currency Converter Calculator");
 		System.out.println("12. Record buying transaction");
+		System.out.println("15. Exit");
 	}
 
 	public static void addCurrency(ArrayList<Currency> currencyList) {
