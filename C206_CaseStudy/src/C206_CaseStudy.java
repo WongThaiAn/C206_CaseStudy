@@ -5,8 +5,10 @@ public class C206_CaseStudy {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ArrayList<Currency> currencyList = new ArrayList<Currency>();
-		currencyList.add(new Currency("702", "SGD", 0.7, 1.3, 10000));
-		currencyList.add(new Currency("840", "USD", 1.3, 0.7, 5000));
+		currencyList.add(new Currency("3166", "RM", 3.12, 0.32, 10000));
+		currencyList.add(new Currency("840", "USD", 0.74, 1.35, 5000));
+		currencyList.add(new Currency("702", "SGD", 1, 1, 9999999));
+
 		int option = 0;
 
 		while (option != 15) {
@@ -36,7 +38,10 @@ public class C206_CaseStudy {
 			} else if (option == 11) {
 				C206_CaseStudy.calculateConvert(currencyList);
 			} else if (option == 12) {
-				C206_CaseStudy.addTransaction(currencyList);
+				C206_CaseStudy.addSellTransaction(currencyList);
+			} else if (option == 13) {
+				C206_CaseStudy.addBuyTransaction(currencyList);
+
 			} else if (option == 15) {
 				System.out.println("Bye");
 			}
@@ -63,36 +68,33 @@ public class C206_CaseStudy {
 		System.out.println("9. Search for currency holding and its SGD value");
 		System.out.println("10. Search for buy and sell rate of currency");
 		System.out.println("11. Currency Converter Calculator");
-		System.out.println("12. Record buying transaction");
+		System.out.println("12. Record sell transaction");
+		System.out.println("13. Record buy transaction");
+		System.out.println("15. Exit");
 	}
 
 	public static void addCurrency(ArrayList<Currency> currencyList) {
-		
-	
+
 		C206_CaseStudy.setHeader("Add Currency");
 		String iso = Helper.readString("Enter ISO: ");
 		String name = Helper.readString("Enter Name: ");
 		Double bRate = Helper.readDouble("Enter Buy Rate: ");
 		Double sRate = Helper.readDouble("Enter Sell Rate: ");
-		
-		for (int i = 0; i < currencyList.size(); i++) {
-			currencyList.get(i).setISO(iso);
-			currencyList.get(i).setName(name);
-			currencyList.get(i).setbRate(bRate);
-			currencyList.get(i).setsRate(sRate);
-			System.out.println( currencyList.get(i).getName() + " has been added");
-			
-			}
+		Double holding = Helper.readDouble("Enter holding: ");
+
+		currencyList.add(new Currency(iso, name, bRate, sRate, holding));
+		System.out.println("ISO " + iso + " has been deleted");
 
 	}
 
 	public static void viewAllCurrency(ArrayList<Currency> currencyList) {
 
 		C206_CaseStudy.setHeader("Currency LIST");
-		String output = String.format("%-10s %-10s %-10s %-10s\n", "ISO", "NAME",
-				 "BUY RATE", "SELL RATE");
-		 output += retrieveAllCurrency(currencyList);
+		String output = String.format("%-10s %-10s %-10s %-10s %-10s\n", "ISO", "NAME", "BUY RATE", "SELL RATE",
+				"HOLDING");
+		output += retrieveAllCurrency(currencyList);
 		System.out.println(output);
+
 	}
 
 	public static String retrieveAllCurrency(ArrayList<Currency> currencyList) {
@@ -100,10 +102,9 @@ public class C206_CaseStudy {
 
 		for (int i = 0; i < currencyList.size(); i++) {
 
-			output += String.format("%-10s %-10s %-10.2f %-10.2f\n", currencyList.get(i).getISO(),
-					currencyList.get(i).getName(), currencyList.get(i).getbRate(),  currencyList.get(i).getsRate() );
-
-			output += String.format("%-10s %-10s %-10.2f %-10.2f\n", currencyList.get(i).getISO(), currencyList.get(i).getName(), currencyList.get(i).getbRate(),  currencyList.get(i).getsRate() );
+			output += String.format("%-10s %-10s %-10.2f %-10.2f %-10.2f\n", currencyList.get(i).getISO(),
+					currencyList.get(i).getName(), currencyList.get(i).getbRate(), currencyList.get(i).getsRate(),
+					currencyList.get(i).getHolding());
 
 		}
 		return output;
@@ -115,15 +116,12 @@ public class C206_CaseStudy {
 		String iso = Helper.readString("Enter Currency ISO: ");
 		for (int i = 0; i < currencyList.size(); i++) {
 			if (currencyList.get(i).getISO().equals(iso)) {
-				currencyList.get(i).setISO(null);
-				currencyList.get(i).setName(null);
-				currencyList.get(i).setbRate(0);
-				currencyList.get(i).setsRate(0);
 				System.out.println(currencyList.get(i).getName() + " has been deleted");
+				currencyList.remove(i);
 				Ismatch = true;
 			}
 		}
-		if(!Ismatch) {
+		if (!Ismatch) {
 			System.out.println("No such ISO");
 		}
 
@@ -133,17 +131,22 @@ public class C206_CaseStudy {
 
 		C206_CaseStudy.setHeader("Add Holding");
 		String iso = Helper.readString("Enter Currency ISO: ");
-		boolean match = false;
-		for (int i = 0; i < currencyList.size(); i++) {
-			if (currencyList.get(i).getISO().equals(iso)) {
-				double holding = Helper.readDouble("Enter holding amount to add: ");
-				currencyList.get(i).setHolding(currencyList.get(i).getHolding() + holding);
-				System.out.println(holding + "" + currencyList.get(i).getName() + " has been added");
-				match = true;
+		double holding = Helper.readDouble("Enter holding amount to add: ");
+		if (holding == 0 || holding < 0) {
+			System.out.println("Holding amount invalid");
+		} else {
+			boolean match = false;
+			for (int i = 0; i < currencyList.size(); i++) {
+				if (currencyList.get(i).getISO().equals(iso)) {
+					currencyList.get(i).setHolding(currencyList.get(i).getHolding() + holding);
+					System.out.println(holding + "" + currencyList.get(i).getName() + " has been added");
+					match = true;
+				}
 			}
-		}
-		if(!match) {
-			System.out.println("No such ISO");
+
+			if (!match) {
+				System.out.println("No such ISO");
+			}
 		}
 	}
 
@@ -168,15 +171,18 @@ public class C206_CaseStudy {
 		C206_CaseStudy.setHeader("Delete Holding");
 		boolean match = false;
 		String iso = Helper.readString("Enter Currency ISO: ");
+		double holding = Helper.readDouble("Enter holding amount to delete: ");
+		if (holding == 0 || holding < 0) {
+			System.out.println("Holding amount invalid");
+		}
 		for (int i = 0; i < currencyList.size(); i++) {
 			if (currencyList.get(i).getISO().equals(iso)) {
-				double holding = Helper.readDouble("Enter holding amount to delete: ");
 				currencyList.get(i).setHolding(currencyList.get(i).getHolding() - holding);
 				System.out.println(holding + "" + currencyList.get(i).getName() + " has been deleted");
 				match = true;
 			}
 		}
-		if(!match) {
+		if (!match) {
 			System.out.println("No such ISO");
 		}
 
@@ -194,74 +200,75 @@ public class C206_CaseStudy {
 
 	}
 
-	 public static void searchBuySellrate(ArrayList<Currency> currencyList) {
-	        C206_CaseStudy.setHeader("Search Buy & Sell rate currency");
-	        String iso = Helper.readString("Enter currency ISO> ");
-	        String output=String.format("%-15s %-15s %-15s %-15s\n", "CURRENCY ISO", "CURRENCY NAME", "BUY RATE", "SELL RATE");
-	        for(int i = 0; i<currencyList.size();i++) {
-	            if(currencyList.get(i).getISO().equals(iso)) {
-	                output += String.format("%-15s %-15s %-15.2f %-15.2f\n", currencyList.get(i).getISO(), currencyList.get(i).getName(), currencyList.get(i).getbRate(), currencyList.get(i).getsRate());
-	            }
-	        }System.out.println(output);
-	    }
+	public static void searchBuySellrate(ArrayList<Currency> currencyList) {
+		C206_CaseStudy.setHeader("Search Buy & Sell rate currency");
+		String iso = Helper.readString("Enter currency ISO> ");
+		String output = String.format("%-15s %-15s %-15s %-15s\n", "CURRENCY ISO", "CURRENCY NAME", "BUY RATE",
+				"SELL RATE");
+		for (int i = 0; i < currencyList.size(); i++) {
+			if (currencyList.get(i).getISO().equals(iso)) {
+				output += String.format("%-15s %-15s %-15.2f %-15.2f\n", currencyList.get(i).getISO(),
+						currencyList.get(i).getName(), currencyList.get(i).getbRate(), currencyList.get(i).getsRate());
+			}
+		}
+		System.out.println(output);
+	}
 
-	 
+	public static void calculateConvert(ArrayList<Currency> currencyList) {
+		C206_CaseStudy.setHeader("Currency Converter Calculator");
+		System.out.println("1. Sell Currency");// customer buy currency to us
+		System.out.println("2. Buy Currency");// customer sell currency to us
+		int option = Helper.readInt("Enter option> ");
+		double buyamt = 0.0;
+		double sellamt = 0.0;
+		double convertamt = 0.0;
+		String name = "";
+		String aName = "";
+		String output = "";
+		if (option == 1) {
+			String iso = Helper.readString("Enter currency ISO you want to sell to customer> ");
+			String buyiso = Helper.readString("Enter currency ISO you want to buy from customer> ");
+			int amount = Helper.readInt("Enter amount of currency you want to exchange> ");
+			for (int i = 0; i < currencyList.size(); i++) {
+				if (currencyList.get(i).getISO().equals(iso)) {
+					buyamt = currencyList.get(i).getbRate();
+					name = currencyList.get(i).getName();
+				}
+				if (currencyList.get(i).getISO().equals(buyiso)) {
+					sellamt = currencyList.get(i).getsRate();
+					aName = currencyList.get(i).getName();
+				}
+				convertamt = (amount * buyamt) * sellamt;
+				output = String.format("Converted amount from %s to %s is $%-1.2f", name, aName, convertamt);
+			}
+			System.out.println(output);
+		} else if (option == 2) {
+			String iso = Helper.readString("Enter currency ISO you want to buy from customer> ");
+			String selliso = Helper.readString("Enter currency ISO you want to sell to customer> ");
+			int amount = Helper.readInt("Enter amount of currency you want to exchange> ");
+			for (int i = 0; i < currencyList.size(); i++) {
+				if (currencyList.get(i).getISO().equals(iso)) {
+					sellamt = currencyList.get(i).getsRate();
+					name = currencyList.get(i).getName();
+				}
+				if (currencyList.get(i).getISO().equals(selliso)) {
+					buyamt = currencyList.get(i).getbRate();
+					aName = currencyList.get(i).getName();
+				}
+				convertamt = (amount * sellamt) * buyamt;
+				output = String.format("Converted amount from %s to %s is $%-1.2f", name, aName, convertamt);
 
-	    public static void calculateConvert(ArrayList<Currency> currencyList) {
-	        C206_CaseStudy.setHeader("Currency Converter Calculator");
-	        System.out.println("1. Sell Currency");//customer buy currency to us
-	        System.out.println("2. Buy Currency");//customer sell currency to us
-	        int option = Helper.readInt("Enter option> ");
-	        double buyamt = 0.0;
-	        double sellamt = 0.0;
-	        double convertamt=0.0;
-	        String name="";
-	        String aName="";
-	        String output="";
-	        if(option == 1) {
-	            String iso = Helper.readString("Enter currency ISO you want to sell to customer> ");
-	            String buyiso = Helper.readString("Enter currency ISO you want to buy from customer> ");
-	            int amount = Helper.readInt("Enter amount of currency you want to exchange> ");
-	            for(int i = 0; i<currencyList.size();i++) {
-	                if( currencyList.get(i).getISO().equals(iso)) {
-	                    buyamt = currencyList.get(i).getbRate();
-	                    name = currencyList.get(i).getName();
-	                }
-	                if(currencyList.get(i).getISO().equals(buyiso)) {
-	                    sellamt = currencyList.get(i).getsRate();
-	                    aName = currencyList.get(i).getName();
-	                }
-	                convertamt = (amount * buyamt) * sellamt;
-	                output = String.format("Converted amount from %s to %s is $%-1.2f", name, aName, convertamt);
-	            }
-	            System.out.println(output);
-	        }else if(option == 2){
-	            String iso = Helper.readString("Enter currency ISO you want to buy from customer> ");
-	            String selliso = Helper.readString("Enter currency ISO you want to sell to customer> ");
-	            int amount = Helper.readInt("Enter amount of currency you want to exchange> ");
-	            for(int i = 0; i<currencyList.size();i++) {
-	                if( currencyList.get(i).getISO().equals(iso)) {
-	                    sellamt = currencyList.get(i).getsRate();
-	                    name = currencyList.get(i).getName();
-	                }
-	                if(currencyList.get(i).getISO().equals(selliso)) {
-	                    buyamt = currencyList.get(i).getbRate();
-	                    aName = currencyList.get(i).getName();
-	                }
-	                convertamt = (amount * sellamt) * buyamt;
-	                output = String.format("Converted amount from %s to %s is $%-1.2f", name, aName, convertamt);
+			}
+			System.out.println(output);
+		}
+	}
 
-	 
-
-	            }
-	            System.out.println(output);
-	        }
-	    }
-
-	public static void addTransaction(ArrayList<Currency> currencyList) {
+	public static void addSellTransaction(ArrayList<Currency> currencyList) {
 
 	}
 
-	
+	public static void addBuyTransaction(ArrayList<Currency> currencyList) {
+
+	}
 
 }
