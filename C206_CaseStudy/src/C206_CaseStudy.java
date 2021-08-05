@@ -158,8 +158,8 @@ public class C206_CaseStudy {
 
 	    public static void calculateConvert(ArrayList<Currency> currencyList) {
 	        C206_CaseStudy.setHeader("Currency Converter Calculator");
-	        System.out.println("1. SELL Foreign Currency");
-	        System.out.println("2. Buy Local Currency");
+	        System.out.println("1. Sell Currency");//customer buy currency to us
+	        System.out.println("2. Buy Currency");//customer sell currency to us
 	        int option = Helper.readInt("Enter option> ");
 	        double buyamt = 0.0;
 	        double sellamt = 0.0;
