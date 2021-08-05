@@ -5,7 +5,7 @@ public class C206_CaseStudy {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ArrayList<Currency> currencyList = new ArrayList<Currency>();
-		currencyList.add(new Currency("702", "SGD", 0.7, 1.3, 10000));
+		currencyList.add(new Currency("3166", "RM", 0.32, 3.12, 10000));
 		currencyList.add(new Currency("840", "USD", 1.3, 0.7, 5000));
 		int option = 0;
 
@@ -75,25 +75,21 @@ public class C206_CaseStudy {
 		String name = Helper.readString("Enter Name: ");
 		Double bRate = Helper.readDouble("Enter Buy Rate: ");
 		Double sRate = Helper.readDouble("Enter Sell Rate: ");
+		Double holding =Helper.readDouble("Enter holding: ");
 		
-		for (int i = 0; i < currencyList.size(); i++) {
-			currencyList.get(i).setISO(iso);
-			currencyList.get(i).setName(name);
-			currencyList.get(i).setbRate(bRate);
-			currencyList.get(i).setsRate(sRate);
-			System.out.println( currencyList.get(i).getName() + " has been added");
+		currencyList.add(new Currency(iso,name,bRate,sRate, holding));
+		System.out.println("ISO "+ iso+ " has been deleted");
 			
-			}
-
 	}
 
 	public static void viewAllCurrency(ArrayList<Currency> currencyList) {
 
 		C206_CaseStudy.setHeader("Currency LIST");
-		String output = String.format("%-10s %-10s %-10s %-10s\n", "ISO", "NAME",
-				 "BUY RATE", "SELL RATE");
+		String output = String.format("%-10s %-10s %-10s %-10s %-10s\n", "ISO", "NAME",
+				 "BUY RATE", "SELL RATE", "HOLDING");
 		 output += retrieveAllCurrency(currencyList);
 		System.out.println(output);
+		
 	}
 
 	public static String retrieveAllCurrency(ArrayList<Currency> currencyList) {
@@ -101,10 +97,9 @@ public class C206_CaseStudy {
 
 		for (int i = 0; i < currencyList.size(); i++) {
 
-			output += String.format("%-10s %-10s %-10.2f %-10.2f\n", currencyList.get(i).getISO(),
-					currencyList.get(i).getName(), currencyList.get(i).getbRate(),  currencyList.get(i).getsRate() );
+			output += String.format("%-10s %-10s %-10.2f %-10.2f %-10.2f\n", currencyList.get(i).getISO(),
+					currencyList.get(i).getName(), currencyList.get(i).getbRate(),  currencyList.get(i).getsRate(), currencyList.get(i).getHolding() );
 
-			output += String.format("%-10s %-10s %-10.2f %-10.2f\n", currencyList.get(i).getISO(), currencyList.get(i).getName(), currencyList.get(i).getbRate(),  currencyList.get(i).getsRate() );
 
 		}
 		return output;
@@ -116,10 +111,7 @@ public class C206_CaseStudy {
 		String iso = Helper.readString("Enter Currency ISO: ");
 		for (int i = 0; i < currencyList.size(); i++) {
 			if (currencyList.get(i).getISO().equals(iso)) {
-				currencyList.get(i).setISO(null);
-				currencyList.get(i).setName(null);
-				currencyList.get(i).setbRate(0);
-				currencyList.get(i).setsRate(0);
+				currencyList.remove(i);
 				System.out.println(currencyList.get(i).getName() + " has been deleted");
 				Ismatch = true;
 			}
