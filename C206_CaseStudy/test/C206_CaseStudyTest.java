@@ -53,6 +53,35 @@ public class C206_CaseStudyTest {
 		assertNotNull("Test if there is a valid currency list to add to", currencyList);
 		assertEquals("Test if the currency arrayList size is 0", 0,currencyList.size());
 		
+		//Given that the list is empty, after adding 2 currency, the size of the list is 1
+		C206_CaseStudy.addCurrency(currencyList);
+		assertEquals("Test that currencyList size is 2", 2, currencyList.size());
+		
+		// The item just added is the same as the last currency
+		assertSame("Test that currency added is the same as the last currency in the list?", c2, currencyList.get(1));
+		
+	}
+	public void retrieveAllCurrencyTest() {
+		//Test if currency list is not null but empty
+		assertNotNull("Test if there is a valid Currency arraylist to retrieve currency details",currencyList);
+		
+		//Test if the list of Currency retrieved from the C206_CaseStudy is empty
+		String Output = "";
+		String allCurrency = C206_CaseStudy.retrieveAllCurrency(currencyList);
+		assertEquals("Test that the retrieved CurrencyList is empty?",Output);
+		
+		
+	}
+	public void viewAllCurrencyListTest() {
+		//Test if currency list is not null but empty
+				assertNotNull("Test if there is a valid Currency arraylist to view currency details",currencyList);
+		
+	}
+	public void deleteCurrencyTest() {
+		// Test if currency list is not null, so that can delete a item
+		assertNotNull("Check if there is a valid Currency arraylist to delete from",currencyList);
+			
+		
 	}
 	
 	@After

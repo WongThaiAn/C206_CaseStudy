@@ -70,7 +70,7 @@ public class C206_CaseStudy {
 		
 	
 		C206_CaseStudy.setHeader("Add Currency");
-		int iso = Helper.readInt("Enter ISO: ");
+		String iso = Helper.readString("Enter ISO: ");
 		String name = Helper.readString("Enter Name: ");
 		Double bRate = Helper.readDouble("Enter Buy Rate: ");
 		Double sRate = Helper.readDouble("Enter Sell Rate: ");
@@ -95,11 +95,12 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 
-	private static String retrieveAllCurrency(ArrayList<Currency> currencyList) {
+	public static String retrieveAllCurrency(ArrayList<Currency> currencyList) {
 		String output = "";
 
 		for (int i = 0; i < currencyList.size(); i++) {
-			output += String.format("%-10d %-10s %-10.2f %-10.2f\n", currencyList.get(i).getISO(), currencyList.get(i).getName(), currencyList.get(i).getbRate(),  currencyList.get(i).getsRate() );
+			output += String.format("%-10s %-10s %-10.2f %-10.2f\n", currencyList.get(i).getISO(),
+					currencyList.get(i).getName(), currencyList.get(i).getbRate(),  currencyList.get(i).getsRate() );
 		}
 		return output;
 	}
@@ -107,7 +108,7 @@ public class C206_CaseStudy {
 	public static void deleteCurrency(ArrayList<Currency> currencyList) {
 		C206_CaseStudy.setHeader("Delete Currency");
 		boolean Ismatch = false;
-		int iso = Helper.readInt("Enter Currency ISO: ");
+		String iso = Helper.readString("Enter Currency ISO: ");
 		for (int i = 0; i < currencyList.size(); i++) {
 			if (currencyList.get(i).getISO() == iso) {
 				currencyList.get(i).setISO(0);
