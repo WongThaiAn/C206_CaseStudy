@@ -74,16 +74,10 @@ public class C206_CaseStudy {
 		String name = Helper.readString("Enter Name: ");
 		Double bRate = Helper.readDouble("Enter Buy Rate: ");
 		Double sRate = Helper.readDouble("Enter Sell Rate: ");
+		Double holding =Helper.readDouble("Enter holding: ");
 		
-		for (int i = 0; i < currencyList.size(); i++) {
-			currencyList.get(i).setISO(iso);
-			currencyList.get(i).setName(name);
-			currencyList.get(i).setbRate(bRate);
-			currencyList.get(i).setsRate(sRate);
-			System.out.println( currencyList.get(i).getName() + " has been added");
+		currencyList.add(new Currency(iso,name,bRate,sRate, holding));
 			
-			}
-
 	}
 
 	public static void viewAllCurrency(ArrayList<Currency> currencyList) {
@@ -103,7 +97,8 @@ public class C206_CaseStudy {
 			output += String.format("%-10s %-10s %-10.2f %-10.2f\n", currencyList.get(i).getISO(),
 					currencyList.get(i).getName(), currencyList.get(i).getbRate(),  currencyList.get(i).getsRate() );
 
-			output += String.format("%-10s %-10s %-10.2f %-10.2f\n", currencyList.get(i).getISO(), currencyList.get(i).getName(), currencyList.get(i).getbRate(),  currencyList.get(i).getsRate() );
+			output += String.format("%-10s %-10s %-10.2f %-10.2f\n", currencyList.get(i).getISO(), 
+					currencyList.get(i).getName(), currencyList.get(i).getbRate(),  currencyList.get(i).getsRate() );
 
 		}
 		return output;

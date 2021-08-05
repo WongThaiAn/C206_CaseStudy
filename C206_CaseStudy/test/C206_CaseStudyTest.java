@@ -51,6 +51,7 @@ public class C206_CaseStudyTest {
 		assertNotNull("Check if there is a valid Currency arraylist to delete from",currencyList);
 	}
 
+	@Test
 	public void addCurrencyTest() {
 		//Currency list is not null, so that can add new currency
 		assertNotNull("Test if there is a valid currency list to add to", currencyList);
@@ -64,6 +65,7 @@ public class C206_CaseStudyTest {
 		assertSame("Test that currency added is the same as the last currency in the list?", c2, currencyList.get(1));
 		
 	}
+	@Test
 	public void retrieveAllCurrencyTest() {
 		//Test if currency list is not null but empty
 		assertNotNull("Test if there is a valid Currency arraylist to retrieve currency details",currencyList);
@@ -75,11 +77,13 @@ public class C206_CaseStudyTest {
 		
 		
 	}
+	@Test
 	public void viewAllCurrencyListTest() {
 		//Test if currency list is not null but empty
 				assertNotNull("Test if there is a valid Currency arraylist to view currency details",currencyList);
 		
 	}
+	@Test
 	public void deleteCurrencyTest() {
 		// Test if currency list is not null, so that can delete a item
 		assertNotNull("Check if there is a valid Currency arraylist to delete from",currencyList);
