@@ -72,6 +72,16 @@ public class C206_CaseStudy {
 
 	public static void viewAllCurrency(ArrayList<Currency> currencyList) {
 
+		C206_CaseStudy.setHeader("Currency LIST");
+		String output = String.format("%-10s %-30s %-10s %-10s %-20s\n", "ISO", "NAME",
+				 "BUY RATE", "SELL RATE","HOLDING");
+		 output += retrieveAllCurrency(currencyList);
+		System.out.println(output);
+	}
+
+	private static String retrieveAllCurrency(ArrayList<Currency> currencyList) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public static void deleteCurrency(ArrayList<Currency> currencyList) {
@@ -210,5 +220,7 @@ public class C206_CaseStudy {
 	public static void addTransaction(ArrayList<Currency> currencyList) {
 
 	}
+
+	
 
 }
