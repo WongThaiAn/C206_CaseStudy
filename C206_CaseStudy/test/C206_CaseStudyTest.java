@@ -80,7 +80,7 @@ public class C206_CaseStudyTest {
 		//Test if the list of Currency retrieved from the C206_CaseStudy is empty - boundary
 		String allCurrency = C206_CaseStudy.retrieveAllCurrency(currencyList);
 		String testOutput = "";
-		assertEquals("Test that the retrieved CurrencyList is empty?",testOutput,allCurrency);
+		assertEquals("Test that the viewAllCurrency",testOutput,allCurrency);
 		
 				
 		//Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
