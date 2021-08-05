@@ -77,6 +77,7 @@ public class C206_CaseStudy {
 		Double holding =Helper.readDouble("Enter holding: ");
 		
 		currencyList.add(new Currency(iso,name,bRate,sRate, holding));
+		System.out.println("ISO "+ iso+ " has been deleted");
 			
 	}
 
@@ -87,6 +88,7 @@ public class C206_CaseStudy {
 				 "BUY RATE", "SELL RATE", "HOLDING");
 		 output += retrieveAllCurrency(currencyList);
 		System.out.println(output);
+		
 	}
 
 	public static String retrieveAllCurrency(ArrayList<Currency> currencyList) {
@@ -108,6 +110,7 @@ public class C206_CaseStudy {
 		String iso = Helper.readString("Enter Currency ISO: ");
 		for (int i = 0; i < currencyList.size(); i++) {
 			if (currencyList.get(i).getISO().equals(iso)) {
+				currencyList.remove(i);
 				System.out.println(currencyList.get(i).getName() + " has been deleted");
 				Ismatch = true;
 			}
