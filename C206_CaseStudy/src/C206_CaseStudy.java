@@ -83,7 +83,7 @@ public class C206_CaseStudy {
 
 	public static void viewAllCurrency(ArrayList<Currency> currencyList) {
 
-		C206_CaseStudy.setHeader("Currency LIST");
+		C206_CaseStudy.setHeader("Currency List");
 		String output = String.format("%-10s %-10s %-10s %-10s %-10s\n", "ISO", "NAME",
 				 "BUY RATE", "SELL RATE", "HOLDING");
 		 output += retrieveAllCurrency(currencyList);
@@ -111,10 +111,12 @@ public class C206_CaseStudy {
 		for (int i = 0; i < currencyList.size(); i++) {
 			if (currencyList.get(i).getISO().equals(iso)) {
 				currencyList.remove(i);
-				System.out.println(currencyList.get(i).getName() + " has been deleted");
-				Ismatch = true;
+				
 			}
+			
+			Ismatch = true;
 		}
+		System.out.println("ISO " + iso +" has been deleted");
 		if(!Ismatch) {
 			System.out.println("No such ISO");
 		}
