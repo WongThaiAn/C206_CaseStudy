@@ -169,9 +169,12 @@ public class C206_CaseStudy {
 		C206_CaseStudy.setHeader("Delete Holding");
 		boolean match = false;
 		String iso = Helper.readString("Enter Currency ISO: ");
+		double holding = Helper.readDouble("Enter holding amount to delete: ");
+		if(holding == 0 || holding<0) {
+			System.out.println("Holding amount invalid");
+		}
 		for (int i = 0; i < currencyList.size(); i++) {
 			if (currencyList.get(i).getISO().equals(iso)) {
-				double holding = Helper.readDouble("Enter holding amount to delete: ");
 				currencyList.get(i).setHolding(currencyList.get(i).getHolding() - holding);
 				System.out.println(holding + "" + currencyList.get(i).getName() + " has been deleted");
 				match = true;
