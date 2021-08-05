@@ -67,24 +67,60 @@ public class C206_CaseStudy {
 	}
 
 	public static void addCurrency(ArrayList<Currency> currencyList) {
+		
+	
+		C206_CaseStudy.setHeader("Add Currency");
+		int iso = Helper.readInt("Enter ISO: ");
+		String name = Helper.readString("Enter Name: ");
+		Double bRate = Helper.readDouble("Enter Buy Rate: ");
+		Double sRate = Helper.readDouble("Enter Sell Rate: ");
+		
+		for (int i = 0; i < currencyList.size(); i++) {
+			currencyList.get(i).setISO(iso);
+			currencyList.get(i).setName(name);
+			currencyList.get(i).setbRate(bRate);
+			currencyList.get(i).setsRate(sRate);
+			System.out.println( currencyList.get(i).getName() + " has been added");
+			
+			}
 
 	}
 
 	public static void viewAllCurrency(ArrayList<Currency> currencyList) {
 
 		C206_CaseStudy.setHeader("Currency LIST");
-		String output = String.format("%-10s %-30s %-10s %-10s %-20s\n", "ISO", "NAME",
-				 "BUY RATE", "SELL RATE","HOLDING");
+		String output = String.format("%-10s %-30s %-10.2f %-10.2f\n", "ISO", "NAME",
+				 "BUY RATE", "SELL RATE");
 		 output += retrieveAllCurrency(currencyList);
 		System.out.println(output);
 	}
 
 	private static String retrieveAllCurrency(ArrayList<Currency> currencyList) {
-		// TODO Auto-generated method stub
-		return null;
+		String output = "";
+
+		for (int i = 0; i < currencyList.size(); i++) {
+			output += String.format("%-10s %-30s %-10s %-10s\\n", currencyList.get(i).getISO(), currencyList.get(i).getName(), currencyList.get(i).getbRate(),  currencyList.get(i).getsRate() );
+		}
+		return output;
 	}
 
 	public static void deleteCurrency(ArrayList<Currency> currencyList) {
+		C206_CaseStudy.setHeader("Delete Currency");
+		boolean Ismatch = false;
+		int iso = Helper.readInt("Enter Currency ISO: ");
+		for (int i = 0; i < currencyList.size(); i++) {
+			if (currencyList.get(i).getISO() == iso) {
+				currencyList.get(i).setISO(0);
+				currencyList.get(i).setName(null);
+				currencyList.get(i).setbRate(0);
+				currencyList.get(i).setsRate(0);
+				System.out.println(currencyList.get(i).getName() + " has been deleted");
+				Ismatch = true;
+			}
+		}
+		if(!Ismatch) {
+			System.out.println("No such ISO");
+		}
 
 	}
 
