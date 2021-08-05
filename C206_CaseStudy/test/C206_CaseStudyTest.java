@@ -57,6 +57,20 @@ public class C206_CaseStudyTest {
 		assertNotNull("Test if there is a valid currency list to add to", currencyList);
 		assertEquals("Test if the currency arrayList size is 0", 0,currencyList.size());
 		
+		
+		//Given an empty list, after adding 1 currency, the size of the list is 1 - normal
+		//The currency just added is as same as the first currency of the list
+		C206_CaseStudy.addCurrency(currencyList, c1);
+		assertEquals("Check that Currency arraylist size is 1", 1, currencyList.size());
+		assertSame("Check that Currency is added", c1, currencyList.get(0));
+		
+		//Add another currency. test The size of the list is 2? -normal
+		//The currency just added is as same as the second item of the list
+		C206_CaseStudy.addCurrency(currencyList, c2);
+		assertEquals("Check that Currency arraylist size is 1", 2, currencyList.size());
+		//assertEquals("Check that currency size is 2", 2, currency.size());
+		
+		assertSame("Check that Currency is added", c1, currencyList.get(0));
 	}
 	@Test
 	public void retrieveAllCurrencyTest() {
@@ -69,20 +83,18 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that the retrieved CurrencyList is empty?",testOutput,allCurrency);
 		
 				
-				
 		//Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
 		C206_CaseStudy.addCurrency(currencyList, c1);
 		C206_CaseStudy.addCurrency(currencyList, c2);
-		assertEquals("Test that Camcorder arraylist size is 2", 2, currencyList.size());
+		assertEquals("Test that Currency arraylist size is 2", 2, currencyList.size());
 				
-		//test if the expected output string same as the list of camcorders retrieved from the SourceCentre	
+		//test if the expected output string same as the list of currency retrieved from the SourceCentre	
 		allCurrency= C206_CaseStudy.retrieveAllCurrency(currencyList);
-		testOutput = String.format("%-10s %-10s %-10.2f %-10.2f %-10.2f\n","702", "SGD", 0.7, 1.3, 10000);
-		testOutput += String.format("%-10s %-10s %-10.2f %-10.2f %-20.2f\n","840", "USD", 1.3, 0.7, 5000 );
+		testOutput = String.format("%-10s %-10s %-10s %-10s %-10s\n","702", "SGD", "0.7", "1.3", "10000");
+		testOutput += String.format("%-10s %-10s %-10s %-10s %-20s\n","840", "USD", "1.3", "0.7", "5000" );
 			
-				assertEquals("Test that ViewAllCamcorderlist", testOutput, allCurrency);
-		
-		
+		assertEquals("Test that ViewAllCurrency", testOutput, allCurrency);
+	
 	}
 	@Test
 	public void viewAllCurrencyListTest() {
