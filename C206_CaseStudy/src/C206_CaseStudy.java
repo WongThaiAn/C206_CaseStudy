@@ -7,7 +7,7 @@ public class C206_CaseStudy {
 		ArrayList<Currency> currencyList = new ArrayList<Currency>();
 		currencyList.add(new Currency("3166", "RM", 3.12, 0.32, 10000));
 		currencyList.add(new Currency("840", "USD", 0.74, 1.35, 5000));
-		currencyList.add(new Currency("702", "SGD", 1, 1, 0));
+		currencyList.add(new Currency("702", "SGD", 1, 1,9999999));
 		
 		int option = 0;
 
@@ -113,8 +113,8 @@ public class C206_CaseStudy {
 		String iso = Helper.readString("Enter Currency ISO: ");
 		for (int i = 0; i < currencyList.size(); i++) {
 			if (currencyList.get(i).getISO().equals(iso)) {
-				currencyList.remove(i);
 				System.out.println(currencyList.get(i).getName() + " has been deleted");
+				currencyList.remove(i);
 				Ismatch = true;
 			}
 		}
