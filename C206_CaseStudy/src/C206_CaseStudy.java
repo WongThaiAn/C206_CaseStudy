@@ -5,8 +5,10 @@ public class C206_CaseStudy {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ArrayList<Currency> currencyList = new ArrayList<Currency>();
-		currencyList.add(new Currency("3166", "RM", 0.32, 3.12, 10000));
-		currencyList.add(new Currency("840", "USD", 1.3, 0.7, 5000));
+		currencyList.add(new Currency("3166", "RM", 3.12, 0.32, 10000));
+		currencyList.add(new Currency("840", "USD", 0.74, 1.35, 5000));
+		currencyList.add(new Currency("702", "SGD", 1, 1, 0));
+		
 		int option = 0;
 
 		while (option != 15) {
@@ -126,17 +128,23 @@ public class C206_CaseStudy {
 
 		C206_CaseStudy.setHeader("Add Holding");
 		String iso = Helper.readString("Enter Currency ISO: ");
+		double holding = Helper.readDouble("Enter holding amount to add: ");
+		if(holding == 0 || holding<0) {
+			System.out.println("Holding amount invalid");
+		}
+		else {
 		boolean match = false;
 		for (int i = 0; i < currencyList.size(); i++) {
 			if (currencyList.get(i).getISO().equals(iso)) {
-				double holding = Helper.readDouble("Enter holding amount to add: ");
 				currencyList.get(i).setHolding(currencyList.get(i).getHolding() + holding);
 				System.out.println(holding + "" + currencyList.get(i).getName() + " has been added");
 				match = true;
 			}
 		}
+		
 		if(!match) {
 			System.out.println("No such ISO");
+		}
 		}
 	}
 
