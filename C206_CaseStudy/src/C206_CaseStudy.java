@@ -110,10 +110,6 @@ public class C206_CaseStudy {
 		String iso = Helper.readString("Enter Currency ISO: ");
 		for (int i = 0; i < currencyList.size(); i++) {
 			if (currencyList.get(i).getISO().equals(iso)) {
-				currencyList.get(i).setISO(null);
-				currencyList.get(i).setName(null);
-				currencyList.get(i).setbRate(0);
-				currencyList.get(i).setsRate(0);
 				System.out.println(currencyList.get(i).getName() + " has been deleted");
 				Ismatch = true;
 			}
