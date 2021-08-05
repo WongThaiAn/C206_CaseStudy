@@ -57,23 +57,30 @@ public class C206_CaseStudyTest {
 		assertNotNull("Test if there is a valid currency list to add to", currencyList);
 		assertEquals("Test if the currency arrayList size is 0", 0,currencyList.size());
 		
-		//Given that the list is empty, after adding 2 currency, the size of the list is 1
-		C206_CaseStudy.addCurrency(currencyList);
-		assertEquals("Test that currencyList size is 2", 2, currencyList.size());
-		
-		// The item just added is the same as the last currency
-		assertSame("Test that currency added is the same as the last currency in the list?", c2, currencyList.get(1));
-		
 	}
 	@Test
 	public void retrieveAllCurrencyTest() {
 		//Test if currency list is not null but empty
 		assertNotNull("Test if there is a valid Currency arraylist to retrieve currency details",currencyList);
 		
-		//Test if the list of Currency retrieved from the C206_CaseStudy is empty
-		String Output = "";
+		//Test if the list of Currency retrieved from the C206_CaseStudy is empty - boundary
 		String allCurrency = C206_CaseStudy.retrieveAllCurrency(currencyList);
-		assertEquals("Test that the retrieved CurrencyList is empty?",Output);
+		String testOutput = "";
+		assertEquals("Test that the retrieved CurrencyList is empty?",testOutput,allCurrency);
+		
+				
+				
+		//Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
+		C206_CaseStudy.addCurrency(currencyList, c1);
+		C206_CaseStudy.addCurrency(currencyList, c2);
+		assertEquals("Test that Camcorder arraylist size is 2", 2, currencyList.size());
+				
+		//test if the expected output string same as the list of camcorders retrieved from the SourceCentre	
+		allCurrency= C206_CaseStudy.retrieveAllCurrency(currencyList);
+		testOutput = String.format("%-10s %-10s %-10.2f %-10.2f %-10.2f\n","702", "SGD", 0.7, 1.3, 10000);
+		testOutput += String.format("%-10s %-10s %-10.2f %-10.2f %-20.2f\n","840", "USD", 1.3, 0.7, 5000 );
+			
+				assertEquals("Test that ViewAllCamcorderlist", testOutput, allCurrency);
 		
 		
 	}

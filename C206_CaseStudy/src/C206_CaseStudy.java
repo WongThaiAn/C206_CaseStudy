@@ -14,7 +14,8 @@ public class C206_CaseStudy {
 			option = Helper.readInt("Enter an option > ");
 
 			if (option == 1) {
-				C206_CaseStudy.addCurrency(currencyList);
+				Currency cc = inputCurrency();
+				C206_CaseStudy.addCurrency(currencyList,cc);
 			} else if (option == 2) {
 				C206_CaseStudy.viewAllCurrency(currencyList);
 			} else if (option == 3) {
@@ -65,10 +66,8 @@ public class C206_CaseStudy {
 		System.out.println("11. Currency Converter Calculator");
 		System.out.println("12. Record buying transaction");
 	}
-
-	public static void addCurrency(ArrayList<Currency> currencyList) {
-		
 	
+	public static Currency inputCurrency() {
 		C206_CaseStudy.setHeader("Add Currency");
 		String iso = Helper.readString("Enter ISO: ");
 		String name = Helper.readString("Enter Name: ");
@@ -76,8 +75,18 @@ public class C206_CaseStudy {
 		Double sRate = Helper.readDouble("Enter Sell Rate: ");
 		Double holding =Helper.readDouble("Enter holding: ");
 		
-		currencyList.add(new Currency(iso,name,bRate,sRate, holding));
-		System.out.println("ISO "+ iso+ " has been added successfully");
+
+		Currency cc= new Currency(iso, name,bRate, sRate, holding);
+		return cc;
+		
+	}
+
+
+	public static void addCurrency(ArrayList<Currency> currencyList, Currency cc) {
+		
+		currencyList.add(cc);
+		System.out.println("Currency has been added successfully");
+		
 			
 	}
 
@@ -110,17 +119,21 @@ public class C206_CaseStudy {
 		String iso = Helper.readString("Enter Currency ISO: ");
 		for (int i = 0; i < currencyList.size(); i++) {
 			if (currencyList.get(i).getISO().equals(iso)) {
-				currencyList.remove(i);
+				String confirm = Helper.readString("Are you sure? YES/NO");
+				if(confirm.toUpperCase() == "NO") {
+					System.out.println("ISO " + iso +" is not deleted");
+					
+				} else {
+					currencyList.remove(i);
+					Ismatch = true;
+					System.out.println("ISO " + iso +" has been deleted");	
+				}
 				
+			}else {
+				System.out.println("No such ISO");
+				Ismatch = false;
 			}
-			
-			Ismatch = true;
-		}
-		System.out.println("ISO " + iso +" has been deleted");
-		if(!Ismatch) {
-			System.out.println("No such ISO");
-		}
-
+		}	
 	}
 
 	public static void addHolding(ArrayList<Currency> currencyList) {
@@ -255,6 +268,8 @@ public class C206_CaseStudy {
 	public static void addTransaction(ArrayList<Currency> currencyList) {
 
 	}
+
+	
 
 	
 
