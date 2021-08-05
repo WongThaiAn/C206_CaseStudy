@@ -47,6 +47,20 @@ public class C206_CaseStudyTest {
 		// Test if currency list is not null, so that can delete a item - boundary
 		assertNotNull("Check if there is a valid Currency arraylist to delete from",currencyList);
 	}
+
+	public void addCurrencyTest() {
+		//Currency list is not null, so that can add new currency
+		assertNotNull("Test if there is a valid currency list to add to", currencyList);
+		assertEquals("Test if the currency arrayList size is 0", 0,currencyList.size());
+		
+		//Given that the currencyList is empty, when a currency is added, the size increase by 1
+		C206_CaseStudy.addCurrency(currencyList,c1);
+		assertEquals("Test if the currencyList size is 1", 1, currencyList.size());
+		
+		//when a currency is added, the size increase by 1
+				C206_CaseStudy.addCurrency(currencyList,c2);
+				assertEquals("Test if the currencyList size is 1", 2, currencyList.size());
+	}
 	
 	@After
 	public void tearDown() throws Exception {
