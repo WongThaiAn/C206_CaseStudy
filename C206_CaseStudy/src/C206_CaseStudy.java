@@ -77,7 +77,7 @@ public class C206_CaseStudy {
 		Double holding =Helper.readDouble("Enter holding: ");
 		
 		currencyList.add(new Currency(iso,name,bRate,sRate, holding));
-		System.out.println("ISO "+ iso+ " has been deleted");
+		System.out.println("ISO "+ iso+ " has been added successfully");
 			
 	}
 
