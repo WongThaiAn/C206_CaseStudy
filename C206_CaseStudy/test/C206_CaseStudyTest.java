@@ -18,8 +18,8 @@ public class C206_CaseStudyTest {
 	@Before
 	
 	public void setUp() throws Exception {
-		c1 = new Currency("702","SGD", 0.7, 1.3, 10000);
-		c2 = new Currency("840", "USD", 1.3, 0.7, 5000);
+		c1 = new Currency("3166","RM", 3.12, 0.32, 10000);
+		c2 = new Currency("840", "USD", 0.74, 1.35, 5000);
 		
 		currencyList = new ArrayList<Currency>();
 	}
@@ -28,7 +28,8 @@ public class C206_CaseStudyTest {
 	public void addHoldingTest() {
 		// Test if currency list is not null, so that can add a new item - boundary
 		assertNotNull("Check if there is a valid Currency arraylist to add to",currencyList);
-				
+		//Given an empty list after adding 1 currency, the size of the list is 1 - normal
+		//The currency holding added is the same as the first currency of the list
 	}
 	@Test
 	public void retrieveHoldingTest() {
@@ -50,7 +51,7 @@ public class C206_CaseStudyTest {
 		// Test if currency list is not null, so that can delete a item - boundary
 		assertNotNull("Check if there is a valid Currency arraylist to delete from",currencyList);
 	}
-
+	
 	@Test
 	public void addCurrencyTest() {
 		//Currency list is not null, so that can add new currency
@@ -72,6 +73,7 @@ public class C206_CaseStudyTest {
 		
 		assertSame("Check that Currency is added", c1, currencyList.get(0));
 	}
+	
 	@Test
 	public void retrieveAllCurrencyTest() {
 		//Test if currency list is not null but empty
@@ -96,12 +98,14 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that ViewAllCurrency", testOutput, allCurrency);
 	
 	}
+	
 	@Test
 	public void viewAllCurrencyListTest() {
 		//Test if currency list is not null but empty
 				assertNotNull("Test if there is a valid Currency arraylist to view currency details",currencyList);
 		
 	}
+	
 	@Test
 	public void deleteCurrencyTest() {
 		// Test if currency list is not null, so that can delete a item
