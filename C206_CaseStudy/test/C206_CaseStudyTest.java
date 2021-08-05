@@ -18,8 +18,8 @@ public class C206_CaseStudyTest {
 	@Before
 	
 	public void setUp() throws Exception {
-		c1 = new Currency(702,"SGD", 0.7, 1.3, 10000);
-		c2 = new Currency(840, "USD", 1.3, 0.7, 5000);
+		c1 = new Currency("702","SGD", 0.7, 1.3, 10000);
+		c2 = new Currency("840", "USD", 1.3, 0.7, 5000);
 		
 		currencyList = new ArrayList<Currency>();
 	}
@@ -37,9 +37,12 @@ public class C206_CaseStudyTest {
 		//Test if the list of Currency retrieved from the C206_CaseStudy is empty - boundary
 		String allCurrency = C206_CaseStudy.retrieveHolding(currencyList);
 		String testOutput = "";
-		assertEquals("Test that the retrieved CurrencyList is empty?",testOutput);
-		
-		//Given an empty list, after adding 2 currency, test if the size of the list is 2 - normal
+		assertEquals("Check that ViewAllCurrency",testOutput,allCurrency);
+		//test if the expected output string same as the list of currency retrieved from the C206_CaseStudy
+		allCurrency = C206_CaseStudy.retrieveHolding(currencyList);
+		testOutput = String.format("%-10s %-s\n","SGD","10000");
+		testOutput += String.format("%-10s %-s\n", "USD","5000");
+		assertEquals("Test that ViewAllCurrency",testOutput,allCurrency);
 	}
 	
 	@Test
