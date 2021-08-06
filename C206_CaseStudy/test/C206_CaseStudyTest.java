@@ -6,15 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-<<<<<<< HEAD
+
 public class C206_CaseStudyTest 
 {
-
-	@Before
-	public void setUp() throws Exception 
-	{
-=======
-public class C206_CaseStudyTest {
 	private Currency c1;
 	private Currency c2;
 	
@@ -22,7 +16,7 @@ public class C206_CaseStudyTest {
 	
 	public C206_CaseStudyTest() {
 		super();
->>>>>>> branch 'master' of https://github.com/WongThaiAn/C206_CaseStudy.git
+
 	}
 	@Before
 	
@@ -109,41 +103,45 @@ public class C206_CaseStudyTest {
 	}
 	
 	@Test
-	public void viewAllCurrencyListTest() {
+	public void viewCompanyholdingTest() 
+	{
 		//Test if currency list is not null but empty
-				assertNotNull("Test if there is a valid Currency arraylist to view currency details",currencyList);
-		
+				assertNotNull("Test if there is a valid Currency arraylist to view company holdings in various currencies"
+						,currencyList);
+				assertEquals("Test that currencyList arraylist size is 2", 2, currencyList.size());
+
 	}
+
 	
 	@Test
-	public void deleteCurrencyTest() {
+	public void viewSGDvalueTest() {
 		// Test if currency list is not null, so that can delete a item
-		assertNotNull("Check if there is a valid Currency arraylist to delete from",currencyList);
-			
+		assertNotNull("Check if there is a valid Currency arraylist to display currency in SGD value based on sell rate"
+				,currencyList);
+		assertEquals("Test that currencyList arraylist size is 2", 2, currencyList.size());
+		
+		
 		
 	}
 	
-	@After
-<<<<<<< HEAD
-	public void tearDown() throws Exception 
-	{
-=======
-	public void tearDown() throws Exception {
-		c1 = null;
-		c2 = null;
->>>>>>> branch 'master' of https://github.com/WongThaiAn/C206_CaseStudy.git
-	}
-
-<<<<<<< HEAD
 	@Test
-	public void c206_test() 
-	{
-		//fail("Not yet implemented"); 
-		assertTrue("C206_CaseStudy_SampleTest ",true);
-		
+	public void searchCurrencyholdingTest() {
+				assertNotNull("Test if there is a valid Currency arraylist to search "
+						+ "for the currency Holding and its SGD value",currencyList);
+				String testOutput = "";
+				testOutput = String.format("%-10s %-10s %-10s %-10s %-10s\n","702", "SGD", "0.7", "1.3", "10000");
+				testOutput = String.format("%-10s %-10s %-10s %-10s %-20s\n","840", "USD", "1.3", "0.7", "5000" );
+				assertEquals("Test that Searched currencyList is empty?", 
+						testOutput, C206_CaseStudy.searchCurrencyholding(currencyList));
+				
+				boolean test1 = C206_CaseStudy.searchCurrencyholding(currencyList);
+				assertTrue("Test if Search Currency Holding is available to find for holding and its SGD value ",test1);
+				
+				
+				
 	}
-=======
 	
->>>>>>> branch 'master' of https://github.com/WongThaiAn/C206_CaseStudy.git
+	
 
+	
 }
