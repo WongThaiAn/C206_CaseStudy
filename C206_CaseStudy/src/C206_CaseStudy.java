@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class C206_CaseStudy 
 {
-
 	
 	public static void main(String[] args) 
 	{
@@ -10,7 +9,9 @@ public class C206_CaseStudy
 		
 		currencyList.add(new Currency("702", "SGD", 0.7, 1.3, 10000));
 		currencyList.add(new Currency("840", "USD", 1.3, 0.7, 5000));
-		//currencyList.add(new Currency("702", "SGD", 1, 1,9999999));
+		currencyList.add(new Currency("702", "SGD", 1, 1,9999999));
+		currencyList.add(new Currency("3166","RM", 3.12, 0.32, 10000));
+		currencyList.add(new Currency("840", "USD", 0.74, 1.35, 5000));
 		
 		int option = 0;
 
@@ -259,25 +260,27 @@ public class C206_CaseStudy
 		
 			String holdingoutput1 ="";
 			double convertedholding = 0.0;
+			int i =0;
 			
 			String holdingoutput = String.format("%-10s %-10s %-10s\n", 
-					                             "HOLDING", "SGD VALUE","USD VALUE");
+					                             "HOLDING", "SGD VALUE","FOREIGN CURRENCY");
 
 			System.out.println(holdingoutput);
 			
-			for(int i =0; i<currencyList.size();i++)
+			for(i =0; i<currencyList.size();i++)
 			{
 				Currency currency = currencyList.get(i);
 				convertedholding = currency.getHolding()*currency.getsRate();
 				holdingoutput1 += String.format("%-10s %-10.2f %-10.2f\n", 
 							currency.getName(),currency.getHolding(),convertedholding);
 				
+
 							
 			}
 			
 			System.out.println(holdingoutput1);
-		
 			
+
 
 	}
 
@@ -288,17 +291,19 @@ public class C206_CaseStudy
 			C206_CaseStudy.setHeader("DISPLAY CURRENCY IN ITS CONVERTED SGD VALUE BASED ON SELL RATE");
 			
 			String sgdoutput1 ="";
-			double convertedholding = 0.0;
-			String headingoutput = String.format("%-10s %-20s %-20s %-20s\n", "ISO", "CURRENCY","SELL RATE", "SGD VALUE");
+			double sellratesgdholding = 0.0;
+			
+			String headingoutput = String.format("%-10s %-20s %-20s %-20s\n", 
+								"ISO", "CURRENCY","SELL RATE","SGD VALUE(SELL RATE)");
 			System.out.print(headingoutput);
 
 			
 			for(int i =0; i<currencyList.size(); i++)
 			{
 				Currency currency = currencyList.get(i);
-				convertedholding = currency.getHolding()*currency.getsRate();
+				sellratesgdholding = currency.getHolding()/currency.getsRate();
 				sgdoutput1 += String.format("%-10s %-20s %-20.2f %-20.2f\n", 
-						currency.getISO(), currency.getName(),currency.getsRate(),convertedholding);
+						currency.getISO(), currency.getName(),currency.getsRate(),sellratesgdholding);
 				
 				
 			}
@@ -316,9 +321,11 @@ public class C206_CaseStudy
 			boolean searchholding = false;
 			String output ="";
 			
-			double sgdholding = 0.0;
+			double sellratesgdholding = 0.0;
+			double buyratesgdholding =0.0;
+					
 			double holdingSearch = Helper.readDouble("Enter Holding to search > ");
-			String headingoutput = String.format("%-20s %10s", "HOLDING", "SGD VALUE");
+			String headingoutput = String.format("%-20s %-30s %-30s", "HOLDING", "SGD VALUE(BUY RATE)", "SGD VALUE(SELL RATE)");
 			System.out.println(headingoutput);
 			
 			for(int i =0; i<currencyList.size(); i++)
@@ -326,13 +333,14 @@ public class C206_CaseStudy
 				Currency currency = currencyList.get(i);
 				
 				
-				if(currencyList.get(i).getHolding() == holdingSearch)
+				if(currency.getHolding() == holdingSearch)
 				{
 					
 					searchholding = true;
-					sgdholding = holdingSearch*currency.getsRate();
-					output = String.format("%-20.2f %10.2f\n", 
-							               holdingSearch,sgdholding);
+					sellratesgdholding = holdingSearch/currency.getsRate();
+					buyratesgdholding = holdingSearch*currency.getbRate();
+					output = String.format("%-20.2f %-30.2f %-30.2f\n", 
+							               holdingSearch,buyratesgdholding,sellratesgdholding);
 	
 					
 				}

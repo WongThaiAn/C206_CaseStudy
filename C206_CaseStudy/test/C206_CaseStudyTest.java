@@ -109,7 +109,11 @@ public class C206_CaseStudyTest
 				assertNotNull("Test if there is a valid Currency arraylist to view company holdings in various currencies"
 						,currencyList);
 				assertEquals("Test that currencyList arraylist size is 2", 2, currencyList.size());
-
+				
+				String allHolding= C206_CaseStudy.retrieveHolding(currencyList);
+				String testOutput = "";
+				assertEquals("Test that the retrieved Holding is empty?", testOutput, allHolding);
+				
 	}
 
 	
@@ -119,6 +123,7 @@ public class C206_CaseStudyTest
 		assertNotNull("Check if there is a valid Currency arraylist to display currency in SGD value based on sell rate"
 				,currencyList);
 		assertEquals("Test that currencyList arraylist size is 2", 2, currencyList.size());
+		
 		
 		
 		
