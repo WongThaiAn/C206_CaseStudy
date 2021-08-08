@@ -167,21 +167,25 @@ public class C206_CaseStudy
 		boolean Ismatch = false;
 		String iso = Helper.readString("Enter Currency ISO: ");
 		for (int i = 0; i < currencyList.size(); i++) {
-			if(currencyList.get(i).getISO()== iso) {
+			if(currencyList.get(i).getISO().contains(iso) ) {
 				String confirm = Helper.readString("Are you sure? YES/NO : ");
-				if(confirm.toUpperCase()=="YES") {
-					
+				if(confirm.toUpperCase().contains("YES")) {
 					currencyList.remove(i);
-					System.out.println("ISO " + iso + "has been deleted");
+					System.out.println("ISO " + iso + " has been deleted");
 					Ismatch = true;
+					
+				}else {
 					
 				}
 				
 			}
+				
+			}if(Ismatch) {
+				System.out.println("No such ISO");
+		
 		}
-		if(Ismatch) {
-			System.out.println("No such ISO");
-		}
+		
+		
 	}
 
 	public static void addHolding(ArrayList<Currency> currencyList) 
