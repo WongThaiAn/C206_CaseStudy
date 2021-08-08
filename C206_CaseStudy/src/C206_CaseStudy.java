@@ -84,7 +84,7 @@ public class C206_CaseStudy
 			}
 		}
 			
-		if (option == 15) 
+		if (option == 20) 
 			System.out.println("Bye");
 			
 
@@ -119,7 +119,7 @@ public class C206_CaseStudy
 		System.out.println("11. Currency Converter Calculator");
 		System.out.println("12. Record buying transaction");
 		System.out.println("13. View and add threshold");
-		System.out.println("15. Bye");
+		System.out.println("20. Bye");
 	}
 	
 
