@@ -158,14 +158,12 @@ public class C206_CaseStudy {
 					System.out.println("ISO " + iso + " has been deleted");
 					Ismatch = true;
 
-				} else {
 				}
 			}
-			if (Ismatch = false) {
-				System.out.println("No such ISO");
-			}
 		}
-
+		if (!Ismatch) {
+			System.out.println("No such ISO");
+		}
 	}
 
 	public static void addHolding(ArrayList<Currency> currencyList) {
@@ -184,6 +182,9 @@ public class C206_CaseStudy {
 					under = true;
 				}
 			}
+		}
+		if (under) {
+			System.out.println("Successfully added");
 		}
 
 		if (!match) {
@@ -261,7 +262,7 @@ public class C206_CaseStudy {
 					match = true;
 				}
 			}
-			if(match) {
+			if (match) {
 				System.out.println("Successfully added");
 			}
 			if (!match) {
