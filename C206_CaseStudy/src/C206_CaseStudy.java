@@ -131,7 +131,6 @@ public class C206_CaseStudy
 	}
 	public static void addCurrency(ArrayList<Currency> currencyList, Currency cc) {
 		//done by syahira
-
 			currencyList.add(cc);
 		System.out.println( cc.getName() + " has been added");
 	}
@@ -152,7 +151,8 @@ public class C206_CaseStudy
 		for (int i = 0; i < currencyList.size(); i++) {
 
 			output += String.format("%-10s %-10s %-10.2f %-10.2f %-10.2f\n", currencyList.get(i).getISO(),
-					currencyList.get(i).getName(), currencyList.get(i).getbRate(),  currencyList.get(i).getsRate(), currencyList.get(i).getHolding() );
+					currencyList.get(i).getName(), currencyList.get(i).getbRate(),  currencyList.get(i).getsRate(),
+					currencyList.get(i).getHolding() );
 
 
 		}
