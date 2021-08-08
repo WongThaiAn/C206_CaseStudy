@@ -175,16 +175,12 @@ public class C206_CaseStudy
 					Ismatch = true;
 					
 				}else {
-					
 				}
-				
 			}
-				
-			}if(Ismatch) {
+			if(Ismatch = false) {
 				System.out.println("No such ISO");
-		
+			}
 		}
-		
 		
 	}
 
