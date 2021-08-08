@@ -7,14 +7,36 @@ public class Currency
 	private double bRate;
 	private double sRate;
 	private double holding;
+	private int threshold;
 	
-	public Currency(String ISO, String name, double bRate, double sRate, double holding) {
+	/**
+	 * @return the threshold
+	 */
+	public int getThreshold() {
+		return threshold;
+	}
+
+
+
+	/**
+	 * @param threshold the threshold to set
+	 */
+	public void setThreshold(int threshold) {
+		this.threshold = threshold;
+	}
+
+
+
+	public Currency(String ISO, String name, double bRate, double sRate, double holding, int threshold) {
 		this.ISO = ISO;
 		this.name = name;
 		this.bRate = bRate;
 		this.sRate = sRate;
 		this.holding = holding;
+		this.threshold = threshold;
 	}
+
+	
 
 	/**
 	 * @return the holding
