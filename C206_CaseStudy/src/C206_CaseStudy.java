@@ -22,7 +22,9 @@ public class C206_CaseStudy
 
 			if (option == 1) 
 			{
-				C206_CaseStudy.addCurrency(currencyList);
+				Currency cc =inputCurrency();
+				C206_CaseStudy.addCurrency(currencyList, cc);
+				
 			} 
 			
 			else if (option == 2) 
@@ -114,9 +116,8 @@ public class C206_CaseStudy
 	}
 	
 
-	
-	public static void addCurrency(ArrayList<Currency> currencyList) 
-	{
+	public static Currency inputCurrency() {
+		//done by syahira
 		C206_CaseStudy.setHeader("Add Currency");
 		String iso = Helper.readString("Enter ISO: ");
 		String name = Helper.readString("Enter Name: ");
@@ -124,16 +125,19 @@ public class C206_CaseStudy
 		Double sRate = Helper.readDouble("Enter Sell Rate: ");
 		Double holding =Helper.readDouble("Enter holding: ");
 		
-		for (int i = 0; i < currencyList.size(); i++) 
-		{
-			currencyList.add(new Currency(iso,name,bRate,sRate, holding));
-			System.out.println( currencyList.get(i).getName() + " has been added");
-			
-			}
+		Currency cc = new Currency(iso,name,bRate,sRate, holding);
+		return cc;
+		
+	}
+	public static void addCurrency(ArrayList<Currency> currencyList, Currency cc) {
+		//done by syahira
+
+			currencyList.add(cc);
+		System.out.println( cc.getName() + " has been added");
 	}
 
-	public static void viewAllCurrency(ArrayList<Currency> currencyList) 
-	{
+	public static void viewAllCurrency(ArrayList<Currency> currencyList) {
+		//done by syahira
 		C206_CaseStudy.setHeader("Currency LIST");
 		String output = String.format("%-10s %-10s %-10s %-10s %-10s\n", "ISO", "NAME",
 				 "BUY RATE", "SELL RATE", "HOLDING");
@@ -141,8 +145,8 @@ public class C206_CaseStudy
 		System.out.println(output);
 	}
 	
-	private static String retrieveAllCurrency(ArrayList<Currency> currencyList) 
-	{
+	public static String retrieveAllCurrency(ArrayList<Currency> currencyList) {
+		//done by syahira
 		String output = "";
 
 		for (int i = 0; i < currencyList.size(); i++) {
@@ -157,22 +161,25 @@ public class C206_CaseStudy
 	
 
 
-	public static void deleteCurrency(ArrayList<Currency> currencyList) 
-	{
+	public static void deleteCurrency(ArrayList<Currency> currencyList) {
+		//done by syahira
 		C206_CaseStudy.setHeader("Delete Currency");
 		boolean Ismatch = false;
-		int iso = Helper.readInt("Enter Currency ISO: ");
+		String iso = Helper.readString("Enter Currency ISO: ");
 		for (int i = 0; i < currencyList.size(); i++) {
-			if (currencyList.get(i).getISO().equals(iso)) {
-				currencyList.get(i).setISO(null);
-				currencyList.get(i).setName(null);
-				currencyList.get(i).setbRate(0);
-				currencyList.get(i).setsRate(0);
-				System.out.println(currencyList.get(i).getName() + " has been deleted");
-				Ismatch = true;
+			if(currencyList.get(i).getISO()== iso) {
+				String confirm = Helper.readString("Are you sure? YES/NO : ");
+				if(confirm.toUpperCase()=="YES") {
+					
+					currencyList.remove(i);
+					System.out.println("ISO " + iso + "has been deleted");
+					Ismatch = true;
+					
+				}
+				
 			}
 		}
-		if(!Ismatch) {
+		if(Ismatch) {
 			System.out.println("No such ISO");
 		}
 	}
