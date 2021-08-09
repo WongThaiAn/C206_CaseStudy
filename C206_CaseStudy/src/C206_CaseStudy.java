@@ -1,16 +1,20 @@
 import java.util.ArrayList;
 
 public class C206_CaseStudy {
+	private static final ArrayList<Currency> currencyList = new ArrayList<Currency>();
+	private static final ArrayList<Sell_Transaction> SellList = new ArrayList<Sell_Transaction>();
+	private static final ArrayList<Buy_Transaction> BuyList = new ArrayList<Buy_Transaction>();
+
+	private static String currName;
 
 	public static void main(String[] args) {
-		ArrayList<Currency> currencyList = new ArrayList<Currency>();
 
 //		currencyList.add(new Currency("702", "SGD", 1, 1, 9999999, 0));
 //		currencyList.add(new Currency("3166", "RM", 3.12, 0.32, 10000, 0));
 //		currencyList.add(new Currency("840", "USD", 0.74, 1.35, 5000, 0));
 
 		currencyList.add(new Currency("702", "SGD", 1, 1, 9999999, 0));
-		currencyList.add(new Currency("3166", "RM", 0.34, 0.32, 10000, 0));
+		currencyList.add(new Currency("3166", "RM", 3.14, 3.12, 10000, 0));
 		currencyList.add(new Currency("840", "USD", 0.80, 0.74, 5000, 0));
 
 		int option = 0;
@@ -66,15 +70,20 @@ public class C206_CaseStudy {
 			}
 
 			else if (option == 12) {
-				C206_CaseStudy.addSellTransaction(currencyList);
+				Sell_Transaction st = inputSelltx();
+				C206_CaseStudy.addSelltx(SellList, st);
 
 			} else if (option == 13) {
-				C206_CaseStudy.addBuyTransaction(currencyList);
+				Buy_Transaction bt = inputBuytx();
+				C206_CaseStudy.addBuytx(BuyList, bt);
 
 			} else if (option == 14) {
-				C206_CaseStudy.viewaddthreshold(currencyList);
+				C206_CaseStudy.viewAllBuytx(BuyList);
 
 			} else if (option == 15) {
+				C206_CaseStudy.viewaddthreshold(currencyList);
+
+			} else if (option == 16) {
 				C206_CaseStudy.UpdateCurrency(currencyList);
 
 			}
@@ -106,8 +115,9 @@ public class C206_CaseStudy {
 		System.out.println("11. Currency Converter Calculator");
 		System.out.println("12. Record selling transaction");
 		System.out.println("13. Record buying transaction");
-		System.out.println("14. View and add threshold");
-		System.out.println("15. Update Currency");
+		System.out.println("14. View buying transaction");
+		System.out.println("15. View and add threshold");
+		System.out.println("16. Update Currency");
 		System.out.println("20. Bye");
 	}
 
@@ -252,7 +262,7 @@ public class C206_CaseStudy {
 	public static void deleteHolding(ArrayList<Currency> currencyList) {
 		C206_CaseStudy.setHeader("Delete Holding");
 		boolean match = false;
-		int iso = Helper.readInt("Enter Currency ISO: ");
+		String iso = Helper.readString("Enter Currency ISO: ");
 		double holding = Helper.readDouble("Enter holding amount to delete: ");
 
 		if (holding == 0 || holding < 0) {
@@ -461,13 +471,110 @@ public class C206_CaseStudy {
 		}
 	}
 
-	public static void addSellTransaction(ArrayList<Currency> currencyList) {
-		System.out.println("Testing sell");
+	public static Sell_Transaction inputSelltx() { // Option 12 Record Sell transaction
+		// done by roy
+		C206_CaseStudy.setHeader("Add Sell Transaction Records");
+
+		double sellrate = 0.0;
+		int AmtRec = Helper.readInt("Enter currency amount in SGD received: ");
+		String selliso = Helper.readString("Enter currency ISO you want to sell to customer: ");
+
+		for (int i = 0; i < currencyList.size(); i++) {
+			if (currencyList.get(i).getISO().equals(selliso)) {
+				sellrate = currencyList.get(i).getsRate();
+				currName = currencyList.get(i).getName();
+			}
+
+		}
+		double AMT_OUT = AmtRec * sellrate;
+
+		// Update Holding amount for sell transaction;
+		for (int i = 0; i < currencyList.size(); i++) {
+			if (currencyList.get(i).getISO().equals(selliso)) {
+				currencyList.get(i).setHolding(currencyList.get(i).getHolding() - AMT_OUT);
+				System.out.println("Total company holding amount for " + currName + " is "
+						+ currencyList.get(i).getHolding() + " " + currName + " updated!");
+			}
+		}
+		System.out.println("Sell Transaction record updated!");
+
+		Sell_Transaction st = new Sell_Transaction(SellList.size() + 1, AMT_OUT);
+		return st;
 
 	}
 
-	public static void addBuyTransaction(ArrayList<Currency> currencyList) {
-		System.out.println("Testing buy");
+	public static void addSelltx(ArrayList<Sell_Transaction> SellList, Sell_Transaction st) { // Option 12 converted
+																								// message for Record
+																								// Sell transaction
+		// done by roy
+		SellList.add(st);
+		System.out.format("Amount given out to customer from SGD is %.2f %s\n", st.getSellAmt(), currName);
+
+	}
+
+	// Buy Transaction
+
+	public static Buy_Transaction inputBuytx() { // Option 13 Record Buy transaction
+		// done by Roycious
+		C206_CaseStudy.setHeader("Add Buy Transaction Records");
+
+		double buyrate = 0.0;
+		String buyiso = Helper.readString("Enter currency ISO you want to buy from customer: ");
+		int AmtRec = Helper.readInt("Enter foreign currency amount received: ");
+
+		for (int i = 0; i < currencyList.size(); i++) {
+			if (currencyList.get(i).getISO().equals(buyiso)) {
+				buyrate = currencyList.get(i).getbRate();
+				currName = currencyList.get(i).getName();
+			}
+
+		}
+		double AMT_OUT = AmtRec / buyrate;
+
+		// Update Holding amount for sell transaction;
+		for (int i = 0; i < currencyList.size(); i++) {
+			if (currencyList.get(i).getISO().equals(buyiso)) {
+				currencyList.get(i).setHolding(currencyList.get(i).getHolding() - AMT_OUT);
+				System.out.format("Total company holding amount for %s is %.2f %s updated!\n", currName,
+						currencyList.get(i).getHolding(), currName);
+
+			}
+		}
+		System.out.println("Sell Transaction record updated!");
+
+		Buy_Transaction bt = new Buy_Transaction(BuyList.size() + 1, AMT_OUT);
+		return bt;
+
+	}
+
+	public static void addBuytx(ArrayList<Buy_Transaction> BuyList, Buy_Transaction bt) { // Option 13 converted message
+																							// for Record Buy
+																							// transaction
+		// done by Roycious
+		BuyList.add(bt);
+		System.out.format("Amount given out to customer from %s is %.2f SGD\n", currName, bt.getBuyAmt());
+
+	}
+
+	public static void viewAllBuytx(ArrayList<Buy_Transaction> BuyList) { // Option 14 View Buy transaction Main
+		// done by Roycious
+		C206_CaseStudy.setHeader("View Buying Transaction");
+		String output = String.format("%-10s %-10s\n", "ID", "Buy Amount");
+		output += retrieveAllBuytx(BuyList);
+		System.out.println(output);
+	}
+
+	public static String retrieveAllBuytx(ArrayList<Buy_Transaction> BuyList) { // Option 14 View Buy transaction Main
+		// done by Roycious
+		String output = "";
+
+		for (int i = 0; i < BuyList.size(); i++) {
+
+			output += String.format("%-10s %-1.2f %s\n", BuyList.get(i).getBuyID(), BuyList.get(i).getBuyAmt(),
+					currName);
+
+		}
+		return output;
 
 	}
 
