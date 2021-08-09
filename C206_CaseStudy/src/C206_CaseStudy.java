@@ -5,9 +5,13 @@ public class C206_CaseStudy {
 	public static void main(String[] args) {
 		ArrayList<Currency> currencyList = new ArrayList<Currency>();
 
+//		currencyList.add(new Currency("702", "SGD", 1, 1, 9999999, 0));
+//		currencyList.add(new Currency("3166", "RM", 3.12, 0.32, 10000, 0));
+//		currencyList.add(new Currency("840", "USD", 0.74, 1.35, 5000, 0));
+
 		currencyList.add(new Currency("702", "SGD", 1, 1, 9999999, 0));
-		currencyList.add(new Currency("3166", "RM", 3.12, 0.32, 10000, 0));
-		currencyList.add(new Currency("840", "USD", 0.74, 1.35, 5000, 0));
+		currencyList.add(new Currency("3166", "RM", 0.34, 0.32, 10000, 0));
+		currencyList.add(new Currency("840", "USD", 0.80, 0.74, 5000, 0));
 
 		int option = 0;
 
@@ -63,10 +67,16 @@ public class C206_CaseStudy {
 
 			else if (option == 12) {
 				C206_CaseStudy.addSellTransaction(currencyList);
+
 			} else if (option == 13) {
+				C206_CaseStudy.addBuyTransaction(currencyList);
+
+			} else if (option == 14) {
 				C206_CaseStudy.viewaddthreshold(currencyList);
-			}else if (option == 14) {
+
+			} else if (option == 15) {
 				C206_CaseStudy.UpdateCurrency(currencyList);
+
 			}
 		}
 
@@ -74,8 +84,6 @@ public class C206_CaseStudy {
 			System.out.println("Bye");
 
 	}
-
-	
 
 	public static void setHeader(String header) {
 		Helper.line(80, "-");
@@ -96,9 +104,10 @@ public class C206_CaseStudy {
 		System.out.println("9. Search for currency holding and its SGD value");
 		System.out.println("10. Search for buy and sell rate of currency");
 		System.out.println("11. Currency Converter Calculator");
-		System.out.println("12. Record buying transaction");
-		System.out.println("13. View and add threshold");
-		System.out.println("14. Update Currency");
+		System.out.println("12. Record selling transaction");
+		System.out.println("13. Record buying transaction");
+		System.out.println("14. View and add threshold");
+		System.out.println("15. Update Currency");
 		System.out.println("20. Bye");
 	}
 
@@ -166,9 +175,9 @@ public class C206_CaseStudy {
 			System.out.println("No such ISO");
 		}
 	}
-	
+
 	private static void UpdateCurrency(ArrayList<Currency> currencyList) {
-		//done by Syahira
+		// done by Syahira
 		// TODO Auto-generated method stub
 		String iso = Helper.readString("Enter Currency ISO: ");
 		for (int i = 0; i < currencyList.size(); i++) {
@@ -179,20 +188,20 @@ public class C206_CaseStudy {
 				if (choice == 1) {
 					Double newBuyRate = Helper.readDouble("Enter new Buy Rate: ");
 					currencyList.get(i).setbRate(newBuyRate);
-					System.out.println("ISO "+ currencyList.get(i).getISO() + " has change the buy rate to " + newBuyRate);
-			
-				}else if(choice == 2) {
+					System.out.println(
+							"ISO " + currencyList.get(i).getISO() + " has change the buy rate to " + newBuyRate);
+
+				} else if (choice == 2) {
 					Double newSellRate = Helper.readDouble("Enter new Sell Rate: ");
 					currencyList.get(i).setsRate(newSellRate);
-					System.out.println("ISO "+ currencyList.get(i).getISO() + " has change the sell rate to " + newSellRate);
+					System.out.println(
+							"ISO " + currencyList.get(i).getISO() + " has change the sell rate to " + newSellRate);
 				}
 			} else {
 				System.out.println("No such ISO");
 			}
-			}
+		}
 	}
-
-	
 
 	public static void addHolding(ArrayList<Currency> currencyList) {
 
@@ -453,11 +462,12 @@ public class C206_CaseStudy {
 	}
 
 	public static void addSellTransaction(ArrayList<Currency> currencyList) {
-		
+		System.out.println("Testing sell");
 
 	}
 
 	public static void addBuyTransaction(ArrayList<Currency> currencyList) {
+		System.out.println("Testing buy");
 
 	}
 
