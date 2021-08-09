@@ -65,6 +65,8 @@ public class C206_CaseStudy {
 				C206_CaseStudy.addSellTransaction(currencyList);
 			} else if (option == 13) {
 				C206_CaseStudy.viewaddthreshold(currencyList);
+			}else if (option == 14) {
+				C206_CaseStudy.UpdateCurrency(currencyList);
 			}
 		}
 
@@ -73,9 +75,7 @@ public class C206_CaseStudy {
 
 	}
 
-	/**
-	 * @param currencyList
-	 */
+	
 
 	public static void setHeader(String header) {
 		Helper.line(80, "-");
@@ -98,6 +98,7 @@ public class C206_CaseStudy {
 		System.out.println("11. Currency Converter Calculator");
 		System.out.println("12. Record buying transaction");
 		System.out.println("13. View and add threshold");
+		System.out.println("14. Update Currency");
 		System.out.println("20. Bye");
 	}
 
@@ -165,6 +166,33 @@ public class C206_CaseStudy {
 			System.out.println("No such ISO");
 		}
 	}
+	
+	private static void UpdateCurrency(ArrayList<Currency> currencyList) {
+		//done by Syahira
+		// TODO Auto-generated method stub
+		String iso = Helper.readString("Enter Currency ISO: ");
+		for (int i = 0; i < currencyList.size(); i++) {
+			if (currencyList.get(i).getISO().contains(iso)) {
+				System.out.println("1. Update Buy Rate");
+				System.out.println("2. Update Sell Rate");
+				int choice = Helper.readInt("Enter choice: ");
+				if (choice == 1) {
+					Double newBuyRate = Helper.readDouble("Enter new Buy Rate: ");
+					currencyList.get(i).setbRate(newBuyRate);
+					System.out.println("ISO "+ currencyList.get(i).getISO() + " has change the buy rate to " + newBuyRate);
+			
+				}else if(choice == 2) {
+					Double newSellRate = Helper.readDouble("Enter new Sell Rate: ");
+					currencyList.get(i).setsRate(newSellRate);
+					System.out.println("ISO "+ currencyList.get(i).getISO() + " has change the sell rate to " + newSellRate);
+				}
+			} else {
+				System.out.println("No such ISO");
+			}
+			}
+	}
+
+	
 
 	public static void addHolding(ArrayList<Currency> currencyList) {
 
