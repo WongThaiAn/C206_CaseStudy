@@ -453,7 +453,7 @@ public class C206_CaseStudy {
 	}
 
 	public static void addSellTransaction(ArrayList<Currency> currencyList) {
-		// testing
+		
 
 	}
 
