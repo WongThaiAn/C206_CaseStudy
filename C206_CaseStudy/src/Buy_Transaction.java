@@ -8,15 +8,26 @@
 
 public class Buy_Transaction {
 	private int buyID;
+	private String buytxTime;
 	private double buyAmt;
 
-	public Buy_Transaction(int buyID, double buyAmt) {
+	public Buy_Transaction(int buyID, String buytxTime, double buyAmt) {
 		this.buyID = buyID;
+		this.buytxTime = buytxTime;
 		this.buyAmt = buyAmt;
 	}
 
 	public double getBuyAmt() {
 		return buyAmt;
+	}
+
+	public String getBuytxTime() {
+		return buytxTime;
+	}
+
+	public void setBuytxTime(String buytxTime) {
+		this.buytxTime = buytxTime;
+
 	}
 
 	public void setBuyAmt(double buyAmt) {
