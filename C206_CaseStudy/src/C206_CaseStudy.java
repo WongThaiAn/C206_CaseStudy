@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class C206_CaseStudy {
@@ -477,29 +479,36 @@ public class C206_CaseStudy {
 
 		double sellrate = 0.0;
 		int AmtRec = Helper.readInt("Enter currency amount in SGD received: ");
-		String selliso = Helper.readString("Enter currency ISO you want to sell to customer: ");
 
-		for (int i = 0; i < currencyList.size(); i++) {
-			if (currencyList.get(i).getISO().equals(selliso)) {
-				sellrate = currencyList.get(i).getsRate();
-				currName = currencyList.get(i).getName();
+		if (AmtRec < 0) {
+			System.out.println("Error, please enter a positive amount!");
+		} else {
+			String selliso = Helper.readString("Enter currency ISO you want to sell to customer: ");
+
+			for (int i = 0; i < currencyList.size(); i++) {
+				if (currencyList.get(i).getISO().equals(selliso)) {
+					sellrate = currencyList.get(i).getsRate();
+					currName = currencyList.get(i).getName();
+				}
+
 			}
+			double AMT_OUT = AmtRec * sellrate;
+
+			// Update Holding amount for sell transaction;
+			for (int i = 0; i < currencyList.size(); i++) {
+				if (currencyList.get(i).getISO().equals(selliso)) {
+					currencyList.get(i).setHolding(currencyList.get(i).getHolding() - AMT_OUT);
+					System.out.println("Total company holding amount for " + currName + " is "
+							+ currencyList.get(i).getHolding() + " " + currName + " updated!");
+				}
+			}
+			System.out.println("Sell Transaction record updated!\n");
+
+			Sell_Transaction st = new Sell_Transaction(SellList.size() + 1, AMT_OUT);
+			return st;
 
 		}
-		double AMT_OUT = AmtRec * sellrate;
-
-		// Update Holding amount for sell transaction;
-		for (int i = 0; i < currencyList.size(); i++) {
-			if (currencyList.get(i).getISO().equals(selliso)) {
-				currencyList.get(i).setHolding(currencyList.get(i).getHolding() - AMT_OUT);
-				System.out.println("Total company holding amount for " + currName + " is "
-						+ currencyList.get(i).getHolding() + " " + currName + " updated!");
-			}
-		}
-		System.out.println("Sell Transaction record updated!");
-
-		Sell_Transaction st = new Sell_Transaction(SellList.size() + 1, AMT_OUT);
-		return st;
+		return null;
 
 	}
 
@@ -519,31 +528,47 @@ public class C206_CaseStudy {
 		C206_CaseStudy.setHeader("Add Buy Transaction Records");
 
 		double buyrate = 0.0;
-		String buyiso = Helper.readString("Enter currency ISO you want to buy from customer: ");
+		String buyiso = Helper.readString("Enter foreign currency ISO you want to buy from customer: ");
 		int AmtRec = Helper.readInt("Enter foreign currency amount received: ");
 
-		for (int i = 0; i < currencyList.size(); i++) {
-			if (currencyList.get(i).getISO().equals(buyiso)) {
-				buyrate = currencyList.get(i).getbRate();
-				currName = currencyList.get(i).getName();
-			}
+		if (AmtRec < 0) {
+			System.out.println("Error, please enter a positive amount!");
 
-		}
-		double AMT_OUT = AmtRec / buyrate;
-
-		// Update Holding amount for sell transaction;
-		for (int i = 0; i < currencyList.size(); i++) {
-			if (currencyList.get(i).getISO().equals(buyiso)) {
-				currencyList.get(i).setHolding(currencyList.get(i).getHolding() - AMT_OUT);
-				System.out.format("Total company holding amount for %s is %.2f %s updated!\n", currName,
-						currencyList.get(i).getHolding(), currName);
+		} else {
+			for (int i = 0; i < currencyList.size(); i++) {
+				if (currencyList.get(i).getISO().equals(buyiso)) {
+					buyrate = currencyList.get(i).getbRate();
+					currName = currencyList.get(i).getName();
+				}
 
 			}
-		}
-		System.out.println("Sell Transaction record updated!");
+			double AMT_OUT = AmtRec / buyrate;
 
-		Buy_Transaction bt = new Buy_Transaction(BuyList.size() + 1, AMT_OUT);
-		return bt;
+			// Update Holding amount for buy transaction;
+			for (int i = 0; i < currencyList.size(); i++) {
+				if (currencyList.get(i).getISO().equals(buyiso)) {
+					currencyList.get(i).setHolding(currencyList.get(i).getHolding() - AMT_OUT);
+					System.out.format("Total company holding amount for %s is %.2f %s updated!\n", currName,
+							currencyList.get(i).getHolding(), currName);
+
+				}
+			}
+			System.out.println("Buy Transaction record updated!\n");
+
+			LocalDateTime DT = LocalDateTime.now();
+			LocalDateTime txDateTime = LocalDateTime.of(DT.getYear(), DT.getMonth(), DT.getDayOfMonth(), DT.getHour(),
+					DT.getMinute());
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy, hh:mm a ");
+
+			String buyTime = txDateTime.format(formatter);
+
+			System.out.println(buyTime);
+
+			Buy_Transaction bt = new Buy_Transaction(BuyList.size() + 1, buyTime, AMT_OUT);
+			return bt;
+
+		}
+		return null;
 
 	}
 
@@ -559,7 +584,7 @@ public class C206_CaseStudy {
 	public static void viewAllBuytx(ArrayList<Buy_Transaction> BuyList) { // Option 14 View Buy transaction Main
 		// done by Roycious
 		C206_CaseStudy.setHeader("View Buying Transaction");
-		String output = String.format("%-10s %-10s\n", "ID", "Buy Amount");
+		String output = String.format("%-5s %-35s %-10s\n", "ID", "Transaction Time", "Buy Amount");
 		output += retrieveAllBuytx(BuyList);
 		System.out.println(output);
 	}
@@ -570,8 +595,8 @@ public class C206_CaseStudy {
 
 		for (int i = 0; i < BuyList.size(); i++) {
 
-			output += String.format("%-10s %-1.2f %s\n", BuyList.get(i).getBuyID(), BuyList.get(i).getBuyAmt(),
-					currName);
+			output += String.format("%-5s %-35s %-1.2f %s\n", BuyList.get(i).getBuyID(), BuyList.get(i).getBuytxTime(),
+					BuyList.get(i).getBuyAmt(), currName);
 
 		}
 		return output;
