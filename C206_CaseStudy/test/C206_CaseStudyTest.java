@@ -43,8 +43,8 @@ public class C206_CaseStudyTest {
 
 		SellList = new ArrayList<Sell_Transaction>();
 
-		b1 = new Buy_Transaction(1, 100);
-		b2 = new Buy_Transaction(2, 500);
+		b1 = new Buy_Transaction(1, "Thursday 12 August 2021, 12:00 pm", 100);
+		b2 = new Buy_Transaction(2, "Thursday 12 August 2021, 12:07 pm", 500);
 
 		BuyList = new ArrayList<Buy_Transaction>();
 	}
@@ -171,7 +171,7 @@ public class C206_CaseStudyTest {
 
 	@Test
 	public void addSelltxTest() {
-		// Buy list is not null, so that can add new sell transaction
+		// Sell list is not null, so that can add new sell transaction
 		assertNotNull("Test if there is a valid sell list to add to", SellList);
 		assertEquals("Test if the sell arrayList size is 0", 0, SellList.size());
 
